@@ -1,0 +1,327 @@
+
+/* Reset some default browser styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fff8fb; /* very soft pinkish white */
+  color: #3a2c3d; /* dark muted purple for text */
+  line-height: 1.6;
+  padding: 0 20px;
+}
+
+/* Navbar */
+nav {
+  background-color: #f7e8f1; /* light pastel pink */
+  box-shadow: 0 2px 6px rgba(58, 44, 61, 0.1);
+  padding: 12px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'Georgia', serif;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #3a2c3d;
+  text-decoration: none;
+  letter-spacing: 2px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+nav ul li a {
+  color: #3a2c3d;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav ul li a:hover,
+nav ul li a:focus {
+  background-color: #d9bde7; /* subtle purple highlight */
+  color: #fff;
+}
+
+/* Hero Section */
+section {
+  max-width: 700px;
+  margin: 60px auto 100px auto;
+  background: #fff0f5; /* pale pink background */
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 6px 18px rgba(58, 44, 61, 0.1);
+  text-align: center;
+}
+
+section h1 {
+  font-family: 'Georgia', serif;
+  font-size: 2.5rem;
+  color: #632c6e; /* deep purple */
+  margin-bottom: 20px;
+}
+
+section p {
+  font-size: 1.15rem;
+  margin-bottom: 18px;
+  color: #4a3b54;
+}
+
+.button-primary {
+  display: inline-block;
+  padding: 14px 30px;
+  background-color: #b96db8;
+  color: white;
+  font-weight: 700;
+  border-radius: 40px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  box-shadow: 0 5px 15px rgba(185, 109, 184, 0.4);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 10px;
+}
+
+.button-primary:hover,
+.button-primary:focus {
+  background-color: #8a3e8e;
+  box-shadow: 0 8px 20px rgba(138, 62, 142, 0.6);
+}
+
+/* Footer */
+footer {
+  background-color: #f7e8f1;
+  text-align: center;
+  padding: 15px 10px;
+  font-size: 0.9rem;
+  color: #7a5a8a;
+  border-top: 1px solid #d9bde7;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .nav-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  section {
+    margin: 40px 10px 80px 10px;
+    padding: 30px 20px;
+  }
+}
+section h2 {
+  font-family: 'Georgia', serif;
+  font-size: 2rem;
+  color: #632c6e; /* Deep purple, same as homepage h1 but smaller */
+  margin-bottom: 20px;
+  text-align: center;
+}
+/* Contact page h1 style same as homepage */
+section h1 {
+  font-family: 'Georgia', serif;
+  font-size: 2.5rem;
+  color: #632c6e;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Paragraph spacing */
+section p {
+  margin-bottom: 18px;
+  font-size: 1.15rem;
+  color: #4a3b54;
+  text-align: center;
+}
+
+/* Email link styling */
+section a[href^="mailto:"] {
+  color: #b96db8;
+  text-decoration: none;
+  font-weight: 600;
+  transition: text-decoration 0.3s ease, color 0.3s ease;
+}
+
+section a[href^="mailto:"]:hover,
+section a[href^="mailto:"]:focus {
+  color: #8a3e8e;
+  text-decoration: underline;
+}
+
+/* Section headings h2 (already added, but just to confirm) */
+section h2 {
+  font-family: 'Georgia', serif;
+  font-size: 2rem;
+  color: #632c6e;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Paragraphs */
+section p {
+  margin-bottom: 18px;
+  font-size: 1.15rem;
+  color: #4a3b54;
+  text-align: center;
+}
+
+/* Lists */
+section ul {
+  max-width: 600px;
+  margin: 0 auto 30px auto;
+  padding-left: 20px;
+  color: #5a4c6b;
+  font-size: 1.1rem;
+  list-style-type: disc;
+}
+
+section ul li {
+  margin-bottom: 12px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 40px auto;
+  border-collapse: collapse;
+  font-size: 1.1rem;
+  color: #4a3b54;
+  box-shadow: 0 4px 10px rgba(90, 76, 107, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+table th, table td {
+  padding: 12px 18px;
+  border-bottom: 1px solid #d9bde7;
+  text-align: left;
+}
+
+table th {
+  background-color: #d9bde7;
+  color: #3a2c3d;
+  font-weight: 700;
+}
+
+table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Responsive for smaller devices */
+@media (max-width: 600px) {
+  section ul {
+    padding-left: 15px;
+  }
+
+  table, table th, table td {
+    font-size: 1rem;
+    padding: 10px 12px;
+  }
+}
+.shop-section {
+  max-width: 700px;
+  margin: 60px auto 100px auto;
+  background: #fff0f5; /* pale pink background */
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 6px 18px rgba(58, 44, 61, 0.1);
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #3a2c3d;
+}
+
+/* Headings */
+.shop-section h1 {
+  font-family: 'Georgia', serif;
+  font-size: 2.5rem;
+  color: #632c6e;
+  margin-bottom: 10px;
+}
+
+.shop-section h2 {
+  font-family: 'Georgia', serif;
+  font-size: 1.8rem;
+  color: #8a3e8e;
+  margin-bottom: 30px;
+}
+
+/* Product list */
+.shop-products p {
+  font-size: 1.15rem;
+  color: #4a3b54;
+  margin-bottom: 16px;
+}
+
+/* Tagline */
+.tagline {
+  font-style: italic;
+  margin: 40px 0 20px 0;
+  font-size: 1.2rem;
+  color: #b96db8;
+}
+
+/* CTA Button */
+.cta-button {
+  display: inline-block;
+  background-color: #b96db8;
+  color: white;
+  font-weight: 700;
+  padding: 14px 30px;
+  border-radius: 40px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  box-shadow: 0 5px 15px rgba(185, 109, 184, 0.4);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cta-button:hover,
+.cta-button:focus {
+  background-color: #8a3e8e;
+  box-shadow: 0 8px 20px rgba(138, 62, 142, 0.6);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .shop-section {
+    margin: 40px 10px 80px 10px;
+    padding: 30px 20px;
+  }
+
+  .shop-section h1 {
+    font-size: 2rem;
+  }
+
+  .shop-section h2 {
+    font-size: 1.5rem;
+  }
+}
+
+
