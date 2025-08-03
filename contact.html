@@ -1,40 +1,52 @@
-
 <!-- contact.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pale Blom | Contact</title>
+  <title>Pale Blos | Contact</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <nav>
     <div class="nav-container">
-      <a href="index.html" class="logo">Pale Blom</a>
+      <a href="index.html" class="logo">Pale Blos</a>
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About Us</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li><a href="product-info.html">Product Info</a></li>
-        <li><a href="shop.html">Shop</a></li>
+         <li><a href="shop.html">Shop</a></li>
       </ul>
     </div>
   </nav>
-
-  <section>
+  <section class="contact-form-section">
     <h1>📞 Contact Us</h1>
-    <p>Need help, want to place a bulk order, or thinking of gifting Pale Blos to someone special? Let’s talk.</p>
-    <p>Email us at <a href="mailto:hello@paleblos.co.za">hello@paleblos.co.za</a> or find us on Instagram @paleblos</p>
+    <p>We’d love to hear from you! Fill out the form below and we’ll get back to you soon.</p>
+
+    <form action="mailto:hello@paleblos.co.za" method="POST" enctype="text/plain" class="contact-form">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" required placeholder="Your Name" />
+
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" required placeholder="your@email.com" />
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="5" required placeholder="Type your message here..."></textarea>
+
+      <button type="submit" class="cta-button">Send Message 💌</button>
+    </form>
+
+
     <p>📱 WhatsApp: 082 xxx xxxx</p>
     <p>📍 Based in Pretoria, SA</p>
     <p>Our inbox is always open.</p>
   </section>
 
   <footer>
-    <p>© 2025 Pale Blom. All rights reserved.</p>
+    <p>© 2025 Pale Blos. All rights reserved.</p>
   </footer>
 </body>
-
 </html>
+
 
