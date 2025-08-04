@@ -122,5 +122,20 @@ function  changeQuantity(key,quantity){
     }
     reloadCard();
 }
+function completeCheckout() {
+  const name = document.getElementById('fullName').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const address = document.getElementById('address').value.trim();
+  const city = document.getElementById('city').value.trim();
+  const postal = document.getElementById('postal').value.trim();
+
+  if (!name || !phone || !address || !city || !postal) {
+    alert('⚠️ Please fill in all fields before completing checkout.');
+    return;
+  }
+
+  alert(`✅ Thank you, ${name}! Your order has been received.\n\n📦 Delivery to: ${address}, ${city}, ${postal}`);
+}
+
 
 
