@@ -1,3 +1,4 @@
+
 /* RESET & BASE */
 * {
   margin: 0;
@@ -393,4 +394,147 @@ header .shopping span {
 .listCard .count {
   margin: 0 10px;
 }
+
+.form {
+  background-color: #fff0f5;
+  padding: 30px;
+  border-radius: 16px;
+  max-width: 500px;
+  margin: 20px auto;
+  box-shadow: 0 8px 24px rgba(185, 109, 184, 0.15);
+}
+
+.form h1 {
+  text-align: center;
+  color: #632c6e;
+  margin-bottom: 20px;
+}
+
+.group {
+  margin-bottom: 20px;
+}
+
+.group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #632c6e;
+}
+
+.group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d9bde7;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #fff;
+  color: #3a2c3d;
+  transition: border-color 0.3s ease;
+}
+
+.group input:focus {
+  border-color: #b96db8;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(185, 109, 184, 0.2);
+}
+
+.return {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f7e8f1;
+  border-radius: 12px;
+  font-weight: 600;
+  color: #4a3b54;
+}
+
+.return .row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #e5cce7;
+}
+
+.return .row:last-child {
+  border-bottom: none;
+}
+
+.checkout-container {
+  max-width: 800px;
+  margin: 50px auto;
+  background-color: #fff0f5;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.checkout-container h2 {
+  color: #632c6e;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.summary, .form-section, .payment {
+  margin-bottom: 40px;
+}
+
+.summary ul {
+  list-style: none;
+  padding: 0;
+}
+
+.summary li {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #d9bde7;
+  padding: 10px 0;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+  color: #632c6e;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.payment-options label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: #4a3b54;
+}
+
+.payment-options input {
+  margin-right: 10px;
+}
+
+.checkout-button {
+  background-color: #b96db8;
+  color: white;
+  border: none;
+  padding: 15px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 10px;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.checkout-button:hover {
+  background-color: #8a3e8e;
+}
+
 
