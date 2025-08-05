@@ -7,11 +7,27 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  
+  <!-- Navbar -->
+  <nav>
+  <div class="nav-container">
+    <a href="index.html" class="logo">Pale Blos</a>
+    <div class="menu-toggle" id="menu-toggle">&#9776;</div> <!-- Hamburger Icon -->
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html" class="active">Shop</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="checkout.html">Checkout</a></li>
+    </ul>
+  </div>
+</nav>
 
+  <!-- ✅ Checkout Container -->
   <div class="checkout-container">
     <h2>Checkout</h2>
 
-    <!-- Cart Summary -->
+    <!-- 🛒 Cart Summary -->
     <div class="summary">
       <h3>🛒 Your Items</h3>
       <ul id="cart-summary">
@@ -21,7 +37,7 @@
       </ul>
     </div>
 
-    <!-- Billing & Shipping Form -->
+    <!-- 📦 Billing & Shipping Form -->
     <div class="form-section">
       <h3>📦 Billing & Shipping</h3>
       <div class="form-group">
@@ -46,7 +62,7 @@
       </div>
     </div>
 
-    <!-- Payment Options -->
+    <!-- 💳 Payment Options -->
     <div class="payment">
       <h3>💳 Payment Options</h3>
       <div class="payment-options">
@@ -56,13 +72,34 @@
       </div>
     </div>
 
-    <!-- Checkout Button -->
+    <!-- ✅ Checkout Button -->
     <button class="checkout-button" onclick="completeCheckout()">Complete Order</button>
   </div>
+
+  <!-- ✅ Mobile Menu Script -->
+  <script>
+    const toggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    toggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+
+    function completeCheckout() {
+      const name = document.getElementById('fullName').value;
+      const phone = document.getElementById('phone').value;
+      const address = document.getElementById('address').value;
+
+      if (!name || !phone || !address) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+
+      alert("✅ Thank you for your order! We'll contact you soon.");
+      // Optionally: clear form or redirect to thank-you.html
+    }
+  </script>
 
   <script src="script.js"></script>
 </body>
 </html>
-
-
-
