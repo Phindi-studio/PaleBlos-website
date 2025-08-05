@@ -1,34 +1,68 @@
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop</title>
-    <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    <div class="container">
-      <header>
-        <h1>Your Shopping Cart</h1>
-        <div class="shopping">
-          <img src="images/3081840.png">
-          <span class="quantity">0</span> 
-        </div>
-      </header>
-      <div class="list"></div>
-    </div>
-    <div class="card">
-      <h1>Card</h1>
-      <ul class="listCard"></ul>
-      <div class="checkOut">
-        <div class="total">0</div>
-        <div class="closeshopping">Close</div> 
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pale Blos | Shop</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+  <div class="nav-container">
+    <a href="index.html" class="logo">Pale Blos</a>
+    <div class="menu-toggle" id="menu-toggle">&#9776;</div> <!-- Hamburger Icon -->
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html" class="active">Shop</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="checkout.html">Checkout</a></li>
+    </ul>
+  </div>
+</nav>
+  
+  <!-- ✅ Main Shop Container -->
+  <div class="container">
+    <header>
+      <h1>Your Shopping Cart</h1>
+      <div class="shopping">
+        <img src="images/3081840.png" alt="Cart Icon">
+        <span class="quantity">0</span>
       </div>
+    </header>
+
+    <div class="list"></div>
+  </div>
+
+  <!-- ✅ Cart Sidebar -->
+  <div class="card">
+    <h1>Cart</h1>
+    <ul class="listCard"></ul>
+    <div class="checkOut">
+      <div class="total">0</div>
+      <div class="closeshopping">Close</div>
     </div>
-    <script src="script.js"></script>
-  </body>
+  </div>
+
+  <!-- ✅ Mobile Menu Script -->
+  <script>
+    const toggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    toggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+  </script>
+
+  <!-- ✅ Main Shop Script -->
+  <script src="script.js"></script>
+</body>
 </html>
+
 
 
 
