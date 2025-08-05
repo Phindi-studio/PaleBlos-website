@@ -9,51 +9,48 @@ let quantity = document.querySelector('.quantity');
 openShopping.addEventListener('click', () => {
     body.classList.add('active');
 });
+
 closeShopping.addEventListener('click', () => {
     body.classList.remove('active');
 });
 
+// 🛍️ Product Data (sample)
 let products = [
     {
         id: 1,
         name: 'PRODUCT NAME 1',
-        Image: '1.PNG',
-        price: 120000
+        image: '1.PNG',
+        price: 120
     },
-
-     {
-        id: 1,
-        name: 'PRODUCT NAME 1',
-        Image: '1.PNG',
-        price: 120000
+    {
+        id: 2,
+        name: 'PRODUCT NAME 2',
+        image: '2.PNG',
+        price: 90
     },
-
-     {
-        id: 1,
-        name: 'PRODUCT NAME 1',
-        Image: '1.PNG',
-        price: 120000
+    {
+        id: 3,
+        name: 'PRODUCT NAME 3',
+        image: '3.PNG',
+        price: 150
     },
-
-     {
-        id: 1,
-        name: 'PRODUCT NAME 1',
-        Image: '1.PNG',
-        price: 120000
+    {
+        id: 4,
+        name: 'PRODUCT NAME 4',
+        image: '4.PNG',
+        price: 60
     },
-
-     {
-        id: 1,
-        name: 'PRODUCT NAME 1',
-        Image: '1.PNG',
-        price: 120000
+    {
+        id: 5,
+        name: 'PRODUCT NAME 5',
+        image: '5.PNG',
+        price: 200
     },
-
-     {
-        id: 1,
-        name: 'PRODUCT NAME 1',
-        Image: '1.PNG',
-        price: 120000
+    {
+        id: 6,
+        name: 'PRODUCT NAME 6',
+        image: '6.PNG',
+        price: 180
     },
 ];
 
@@ -61,81 +58,81 @@ let listCards = [];
 
 function iniApp() {
     products.forEach((value, key) => {
-        let newDiv = document.createElement('div'); // Fixed: should be createElement, not querySelectorAll
-
-        list.appendChild(newDiv);
+        let newDiv = document.createElement('div');
         newDiv.classList.add('item');
         newDiv.innerHTML = `
-            <img src="image/${value.image}"/> <!-- Fixed: 'scr' to 'src' -->
+            <img src="images/${value.image}" alt="${value.name}"/>
             <div class="title">${value.name}</div>
-            <div class="price">${value.price.toLocaleString()}</div>
-            <button onclick="addToCard(${key})">Add To Cart</button> <!-- Fixed: closing tag from <buttom> to </button> -->
+            <div class="price">R${value.price.toFixed(2)}</div>
+            <button onclick="addToCart(${key})">Add To Cart</button>
         `;
         list.appendChild(newDiv);
-
     });
 }
 iniApp();
 
-function addToCard(key){
-    if (listCards[key] == null) {
-        listCards[key] = products[key]; // FIX: products[Key] → products[key]
-        listCards[key].quantity = 1; // FIX: listCard[Key] → listCards[key]
+function addToCart(key) {
+    if (!listCards[key]) {
+        listCards[key] = { ...products[key], quantity: 1 };
     } else {
-        listCards[key].quantity += 1;
+        listCards[key].quantity++;
     }
-    reloadCard();
+    reloadCart();
 }
-function reloadCard() {
+
+function reloadCart() {
     listCard.innerHTML = '';
     let count = 0;
     let totalPrice = 0;
+
     listCards.forEach((value, key) => {
-        if (value != null) {
+        if (value) {
             totalPrice += value.price * value.quantity;
             count += value.quantity;
 
             let newDiv = document.createElement('li');
             newDiv.innerHTML = `
-                <div><img src="image/${value.image}"/></div>
+                <div><img src="images/${value.image}" alt="${value.name}" /></div>
                 <div>${value.name}</div>
-                <div>${value.price.toLocaleString()}</div>
-                <div>${value.quantity}</div>
+                <div>R${value.price.toFixed(2)}</div>
                 <div>
                     <button onclick="changeQuantity(${key}, ${value.quantity - 1})">-</button>
-                    <div class="count">${value.quantity}</div>
+                    <span class="count">${value.quantity}</span>
                     <button onclick="changeQuantity(${key}, ${value.quantity + 1})">+</button>
                 </div>
             `;
             listCard.appendChild(newDiv);
         }
     });
-    total.innerHTML = totalPrice.toLocaleString();
-    quantity.innerHTML = count;
+
+    total.innerText = `R${totalPrice.toFixed(2)}`;
+    quantity.innerText = count;
 }
-function  changeQuantity(key,quantity){
-    if(quantity == 0){
+
+function changeQuantity(key, newQuantity) {
+    if (newQuantity <= 0) {
         delete listCards[key];
-    }else{
-        listCards[key].quantity = quantity;
-        listCards[key]. price  = quantity * products[key].price;
+    } else {
+        listCards[key].quantity = newQuantity;
     }
-    reloadCard();
+    reloadCart();
 }
+
+// ✅ Simple Checkout Validation
 function completeCheckout() {
-  const name = document.getElementById('fullName').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const address = document.getElementById('address').value.trim();
-  const city = document.getElementById('city').value.trim();
-  const postal = document.getElementById('postal').value.trim();
+    const name = document.getElementById('fullName').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const city = document.getElementById('city').value.trim();
+    const postal = document.getElementById('postal').value.trim();
 
-  if (!name || !phone || !address || !city || !postal) {
-    alert('⚠️ Please fill in all fields before completing checkout.');
-    return;
-  }
+    if (!name || !phone || !address || !city || !postal) {
+        alert('⚠️ Please fill in all fields before completing checkout.');
+        return;
+    }
 
-  alert(`✅ Thank you, ${name}! Your order has been received.\n\n📦 Delivery to: ${address}, ${city}, ${postal}`);
-}
+    alert(`✅ Thank you, ${name}! Your order has been received.\n\n📦 Delivery to: ${address}, ${city}, ${postal}`);
+
 
 
 
