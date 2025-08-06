@@ -72,6 +72,7 @@ nav {
     width: 60%;
     padding: 15px;
     border-radius: 8px;
+    z-index: 1000;
   }
 
   .nav-links.show {
@@ -80,6 +81,8 @@ nav {
 
   .menu-toggle {
     display: block;
+    font-size: 1.8rem;
+    cursor: pointer;
   }
 }
 
@@ -140,6 +143,7 @@ header {
   width: 30px;
 }
 
+
 .quantity {
   position: absolute;
   top: -8px;
@@ -164,6 +168,7 @@ header {
   width: 100%;
   max-width: 150px;
   margin-bottom: 10px;
+  object-fit: contain;
 }
 
 .item .title {
@@ -346,3 +351,4 @@ body.active {
 .hero-section .button-primary:hover {
   background-color: #d891a6;
 }
+
