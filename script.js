@@ -33,8 +33,9 @@ const total = document.querySelector('.total');
 const quantity = document.querySelector('.quantity');
 
 const products = [
-  { id: 1, name: 'FOAM BATH', image: 'foam.png', price: 75 },
+  { id: 1, name: 'FOAM BATH  (2L)', image: 'foam.png', price: 75 },
   { id: 2, name: 'Soap', image: 'soap.png', price: 15 },
+  { id: 2, name: 'BATH SALT (450g)', image: 'salt.png', price: 40},
   // add more if needed
 ];
 
@@ -107,6 +108,7 @@ function changeQuantity(index, newQuantity) {
 
   
  
+
 
 
 
