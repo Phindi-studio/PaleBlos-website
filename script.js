@@ -1,19 +1,16 @@
-// ✅ Mobile Navbar Toggle
 document.addEventListener("DOMContentLoaded", function () {
   const toggle = document.getElementById('menu-toggle');
   const navLinks = document.getElementById('nav-links');
-
-  if (toggle && navLinks) {
-    toggle.addEventListener('click', function () {
-      navLinks.classList.toggle('show');
-    });
-  }
-
-  // ✅ Cart toggle elements
   const openShopping = document.querySelector('.shopping');
   const closeShopping = document.querySelector('.closeshopping');
   const cart = document.querySelector('.card');
   const body = document.querySelector('body');
+
+  if (toggle && navLinks) {
+    toggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+  }
 
   if (openShopping && closeShopping && cart) {
     openShopping.addEventListener('click', () => {
@@ -27,26 +24,22 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  iniApp(); // Initialize product list when DOM is ready
+  iniApp();
 });
 
-// ✅ Cart Variables
 const list = document.querySelector('.list');
 const listCard = document.querySelector('.listCard');
 const total = document.querySelector('.total');
 const quantity = document.querySelector('.quantity');
 
 const products = [
-  
-  { id: 1, name: 'FOAM BATH', image: 'foam.PNG', price: 75 },
-  { id: 2, name: 'Soap', image: 'soap.PNG', price: 15 },
-  // { id: 3, name: 'Product Name 3', image: '3.PNG', price: 150 },
-  // Add more products as needed...
+  { id: 1, name: 'FOAM BATH', image: 'foam.png', price: 75 },
+  { id: 2, name: 'Soap', image: 'soap.png', price: 15 },
+  // add more if needed
 ];
 
 let listCards = [];
 
-// ✅ Initialize Products
 function iniApp() {
   if (!list) return;
 
@@ -63,7 +56,6 @@ function iniApp() {
   });
 }
 
-// ✅ Add to Cart
 function addToCart(index) {
   if (!listCards[index]) {
     listCards[index] = { ...products[index], quantity: 1 };
@@ -73,7 +65,6 @@ function addToCart(index) {
   reloadCart();
 }
 
-// ✅ Reload Cart Display
 function reloadCart() {
   listCard.innerHTML = '';
   let count = 0;
@@ -103,7 +94,6 @@ function reloadCart() {
   quantity.innerText = count;
 }
 
-// ✅ Change Quantity
 function changeQuantity(index, newQuantity) {
   if (newQuantity <= 0) {
     delete listCards[index];
@@ -113,27 +103,10 @@ function changeQuantity(index, newQuantity) {
   reloadCart();
 }
 
-// ✅ Checkout Validation
-function completeCheckout() {
-  const name = document.getElementById('fullName')?.value.trim();
-  const phone = document.getElementById('phone')?.value.trim();
-  const address = document.getElementById('address')?.value.trim();
-  const city = document.getElementById('city')?.value.trim();
-  const postal = document.getElementById('postal')?.value.trim();
+   
 
-  if (!name || !phone || !address || !city || !postal) {
-    alert('⚠️ Please fill in all fields before completing checkout.');
-    return;
-  }
-
-  alert(`✅ Thank you, ${name}! Your order has been received.\n\n📦 Delivery to: ${address}, ${city}, ${postal}`);
-}
-
-// ✅ Expose functions to HTML onclick
-window.addToCart = addToCart;
-window.changeQuantity = changeQuantity;
-window.completeCheckout = completeCheckout;
-
+  
+ 
 
 
 
