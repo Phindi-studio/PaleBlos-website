@@ -51,7 +51,7 @@ function iniApp() {
       <img src="images/${product.image}" alt="${product.name}" onerror="this.src='images/default.png'" />
       <div class="title">${product.name}</div>
       <div class="price">R${product.price.toFixed(2)}</div>
-      <button onclick="addToCart(${index})">Add To Cart</button>
+     <button class="cta-button" onclick="addToCart(${index})">Add To Cart</button>
     `;
     list.appendChild(newDiv);
   });
@@ -108,6 +108,7 @@ function changeQuantity(index, newQuantity) {
 
   
  
+
 
 
 
