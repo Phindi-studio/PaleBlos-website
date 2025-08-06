@@ -1,4 +1,6 @@
-/* RESET & BASE */
+/* =====================
+   RESET & BASE STYLES
+===================== */
 * {
   margin: 0;
   padding: 0;
@@ -7,16 +9,28 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #FFF5F7; /* Pearl White */
-  color: #A38A8C; /* Silky Taupe */
+  background-color: #fff8fb;
+  color: #3a2c3d;
   line-height: 1.6;
-  padding: 0 20px;
 }
 
-/* NAVBAR */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* =====================
+   NAVBAR
+===================== */
 nav {
-  background-color: #FAD1D9; /* Blush Pink */
-  padding: 15px 20px;
+  background-color: #ffe3ec;
+  padding: 1rem 0;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -26,111 +40,95 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 1rem;
 }
 
 .logo {
+  font-size: 1.6rem;
   font-weight: bold;
-  font-size: 1.5rem;
-  color: #92304D; /* Rich Berry */
-  text-decoration: none;
+  color: #b14d68;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 1rem;
 }
 
-.nav-links a {
-  color: #A38A8C; /* Silky Taupe */
-  text-decoration: none;
-  padding: 5px 10px;
-}
-
-.nav-links a.active,
-.nav-links a:hover {
-  background-color: #F7A1B4; /* Soft Rose */
+.nav-links li a {
+  padding: 0.5rem 1rem;
+  color: #3a2c3d;
   border-radius: 5px;
-  color: #fff;
-}
-
-/* MOBILE MENU */
-.menu-toggle {
-  display: none;
-  font-size: 1.8rem;
-  cursor: pointer;
-}
-
-@media (max-width: 768px) {
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    background-color: #FAD1D9;
-    position: absolute;
-    top: 60px;
-    right: 20px;
-    width: 60%;
-    padding: 15px;
-    border-radius: 8px;
-  }
-
-  .nav-links.show {
-    display: flex;
-  }
-
-  .menu-toggle {
-    display: block;
-  }
-}
-
-/* SECTION STYLES */
-section {
-  padding: 40px 0;
-}
-
-section h1,
-section h2 {
-  color: #C27D89; /* Dusty Mauve */
-  margin-bottom: 15px;
-}
-
-section p {
-  margin-bottom: 15px;
-}
-
-.button-primary,
-.cta-button {
-  display: inline-block;
-  background-color: #F7A1B4; /* Soft Rose */
-  color: white;
-  padding: 12px 24px;
-  text-decoration: none;
-  border-radius: 5px;
-  border: none;
-  font-size: 1rem;
   transition: background 0.3s ease;
 }
 
-.button-primary:hover,
-.cta-button:hover {
-  background-color: #C27D89; /* Dusty Mauve */
+.nav-links li a:hover,
+.nav-links li a.active {
+  background-color: #fdd6e0;
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 1.5rem;
   cursor: pointer;
 }
 
-/* SHOP PAGE */
-.container {
-  max-width: 960px;
-  margin: auto;
-  padding: 20px 0;
+/* =====================
+   HERO SECTION
+===================== */
+.hero-section {
+  background-color: #fff0f6;
+  padding: 4rem 0;
+  text-align: center;
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+.hero-section h1 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  color: #b14d68;
 }
 
+.hero-section p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.button-primary {
+  display: inline-block;
+  padding: 0.7rem 1.5rem;
+  background-color: #b14d68;
+  color: white;
+  border-radius: 5px;
+  margin-top: 1rem;
+}
+
+/* =====================
+   PRODUCT INFO / TABLE
+===================== */
+.product-info-section {
+  padding: 3rem 0;
+}
+
+.price-table-wrapper {
+  margin-top: 1rem;
+  overflow-x: auto;
+}
+
+.price-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.price-table th,
+.price-table td {
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+/* =====================
+   SHOP & CART STYLES
+===================== */
 .shopping {
   position: relative;
   cursor: pointer;
@@ -141,214 +139,146 @@ header {
 }
 
 .quantity {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background: #C27D89; /* Dusty Mauve */
-  color: white;
+  background: crimson;
   border-radius: 50%;
+  color: white;
   padding: 2px 8px;
-  font-size: 12px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 0.8rem;
 }
 
-/* PRODUCT LIST */
-.item {
-  background-color: #FFE8F0; /* Vintage Pink */
-  padding: 15px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  text-align: center;
-}
-
-.item img {
-  width: 100%;
-  max-width: 150px;
-  margin-bottom: 10px;
-}
-
-.item .title {
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #92304D; /* Rich Berry */
-}
-
-.item .price {
-  color: #C27D89;
-  margin-bottom: 10px;
-}
-
-/* CART SIDEBAR */
 .card {
   position: fixed;
   top: 0;
-  right: 0;
-  background-color: #FFF5F7; /* Pearl White */
+  right: -100%;
   width: 300px;
   height: 100vh;
-  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  background: #fff0f6;
+  padding: 2rem;
+  transition: 0.4s ease;
   overflow-y: auto;
-  display: none;
-  z-index: 9999;
+  z-index: 999;
 }
 
 .card.show {
-  display: block;
-}
-
-.card h1 {
-  margin-bottom: 15px;
+  right: 0;
 }
 
 .closeshopping {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  font-size: 1.5rem;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
   cursor: pointer;
 }
 
 .listCard li {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 15px;
+  justify-content: space-between;
+  margin: 1rem 0;
 }
 
 .listCard img {
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-}
-
-.count {
-  padding: 0 8px;
-}
-
-/* CHECKOUT */
-.checkOut {
-  margin-top: 20px;
-  text-align: center;
+  width: 50px;
 }
 
 .checkout-btn {
-  background-color: #92304D; /* Rich Berry */
-  color: white;
-  padding: 10px 18px;
-  border-radius: 5px;
-  text-decoration: none;
   display: inline-block;
-  margin-top: 10px;
+  background: #b14d68;
+  color: white;
+  padding: 0.6rem 1rem;
+  text-align: center;
+  border-radius: 5px;
+  margin-top: 1rem;
 }
 
-.total {
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #C27D89;
+.checkOut {
+  margin-top: 2rem;
+  text-align: center;
 }
 
-/* FORMS */
+/* =====================
+   CONTACT FORM
+===================== */
 .contact-form-section {
+  padding: 3rem 1rem;
+  background-color: #fff8fb;
+}
+
+.contact-form-section h1 {
+  text-align: center;
+  color: #b14d68;
+  margin-bottom: 1rem;
+}
+
+.contact-form {
   max-width: 600px;
   margin: auto;
-  padding: 40px 20px;
-  background-color: #F4E1E6; /* Rosy Beige */
-  border-radius: 10px;
-}
-
-.contact-form label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: 500;
-  color: #92304D;
+  display: flex;
+  flex-direction: column;
 }
 
 .contact-form input,
 .contact-form textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #E6B0B8; /* Vintage Pink Border */
+  padding: 0.75rem;
+  margin: 0.5rem 0 1rem;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #fff;
 }
 
-/* TABLES (Product Info) */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-table th,
-table td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-table th {
-  background-color: #FAD1D9;
-  color: #92304D;
-}
-
-/* FOOTER */
-footer {
-  text-align: center;
-  padding: 20px 0;
-  background-color: #FFE0EB;
-  margin-top: 40px;
-  color: #A38A8C;
-  font-size: 0.9rem;
-}
-
-/* CART BODY LOCK */
-body.active {
-  overflow: hidden;
-}
-.hero-section {
-  background: url('images/floral-blush-bg.png') center/cover no-repeat;
-  padding: 60px 20px;
-  text-align: center;
-  border-radius: 16px;
-  margin-top: 20px;
-  color: #792C43;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-}
-
-.hero-section h1 {
-  font-size: 2rem;
-  color: #92304D;
-  margin-bottom: 15px;
-}
-
-.hero-section p {
-  color: #5e4751;
-  max-width: 720px;
-  margin: 0 auto 15px;
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-.hero-section .button-primary {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 12px 25px;
-  background-color: #EFB1C2;
-  color: #fff;
+.cta-button {
+  background-color: #b14d68;
+  color: white;
+  padding: 0.75rem;
   border: none;
-  border-radius: 30px;
-  font-weight: bold;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.hero-section .button-primary:hover {
-  background-color: #d891a6;
+.cta-button:hover {
+  background-color: #9d3b5b;
 }
 
+.contact-info {
+  text-align: center;
+  margin-top: 2rem;
+}
 
+/* =====================
+   FOOTER
+===================== */
+footer {
+  background-color: #ffe3ec;
+  padding: 1rem 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #3a2c3d;
+}
 
+/* =====================
+   RESPONSIVE DESIGN
+===================== */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: #ffe3ec;
+    padding: 1rem;
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    border-radius: 10px;
+    width: 200px;
+  }
 
+  .nav-links.show {
+    display: flex;
+  }
 
-
+  .menu-toggle {
+    display: block;
+  }
+}
