@@ -37,8 +37,9 @@ const total = document.querySelector('.total');
 const quantity = document.querySelector('.quantity');
 
 const products = [
-  { id: 1, name: 'FOAM BATH','foam.PNG', price: 75 },
-  { id: 2, name: 'Soap','soap.PNG', price: 15 },
+  
+  { id: 1, name: 'FOAM BATH', image: 'foam.PNG', price: 75 },
+  { id: 2, name: 'Soap', image: 'soap.PNG', price: 15 },
   // { id: 3, name: 'Product Name 3', image: '3.PNG', price: 150 },
   // Add more products as needed...
 ];
@@ -132,6 +133,7 @@ function completeCheckout() {
 window.addToCart = addToCart;
 window.changeQuantity = changeQuantity;
 window.completeCheckout = completeCheckout;
+
 
 
 
