@@ -5,113 +5,111 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Pale Blom | Checkout</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Minimal styling for demo */
+    body { font-family: Arial, sans-serif; margin:0; padding:20px; max-width: 600px; margin-left: auto; margin-right: auto; }
+    h1, h2 { text-align: center; }
+    .order-summary, .checkout-form-section { margin-bottom: 30px; }
+    #orderItems .order-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #eee; }
+    .totals div { margin: 6px 0; font-size: 16px; }
+    .totals strong { font-weight: bold; }
+    form label { display: block; margin-bottom: 10px; }
+    input[type="text"], input[type="email"] { width: 100%; padding: 6px; font-size: 14px; box-sizing: border-box; }
+    fieldset { border: 1px solid #ccc; padding: 10px; margin-bottom: 15px; }
+    legend { font-weight: bold; }
+    .payment-method { display: block; margin-bottom: 8px; cursor: pointer; }
+    #cardDetails { margin-bottom: 15px; }
+    button[type="submit"] { background: #f99; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; color: white; font-size: 16px; width: 100%; }
+    .success-message { background: #d4edda; padding: 15px; border-radius: 5px; color: #155724; margin-top: 20px; text-align: center; }
+  </style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <a href="index.html" class="logo">Pale Blom</a>
-      <div class="menu-toggle" id="menu-toggle">&#9776;</div>
-      <ul class="nav-links" id="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="product-info.html">Product Info</a></li>
-      </ul>
+  <h1>Checkout</h1>
+
+  <!-- Order summary -->
+  <section class="order-summary">
+    <h2>Your Order</h2>
+    <div id="orderItems">
+      <!-- Cart items will be injected here by JS -->
     </div>
-  </nav>
 
-  <main class="checkout-container">
+    <div class="totals">
+      <div>Subtotal: <span id="subtotal">R0.00</span></div>
+      <div>Tax (15%): <span id="tax">R0.00</span></div>
+      <div>Shipping: <span id="shipping">R65.00</span></div>
+      <div><strong>Total: <span id="total">R0.00</span></strong></div>
+    </div>
+  </section>
 
-    <h1>Checkout</h1>
+  <!-- Checkout form -->
+  <section class="checkout-form-section">
+    <h2>Payment & Shipping Details</h2>
+    <form id="checkoutForm" novalidate>
 
-    <!-- Order summary -->
-    <section class="order-summary">
-      <h2>Your Order</h2>
-      <div id="orderItems">
-        <!-- Cart items will be injected here by JS -->
-      </div>
+      <label>
+        Full Name*:
+        <input type="text" name="fullName" required />
+      </label>
 
-      <div class="totals">
-        <div>Subtotal: <span id="subtotal">R0.00</span></div>
-        <div>Tax (15%): <span id="tax">R0.00</span></div>
-        <div>Shipping: <span id="shipping">R65.00</span></div>
-        <div><strong>Total: <span id="total">R0.00</span></strong></div>
-      </div>
-    </section>
+      <label>
+        Email*:
+        <input type="email" name="email" required />
+      </label>
 
-    <!-- Checkout form -->
-    <section class="checkout-form-section">
-      <h2>Payment & Shipping Details</h2>
-      <form id="checkoutForm" novalidate>
+      <label>
+        Address*:
+        <input type="text" name="address" required />
+      </label>
 
+      <!-- Payment method selection -->
+      <fieldset>
+        <legend>Payment Method*</legend>
+
+        <label class="payment-method">
+          <input type="radio" name="paymentMethod" value="card" id="card" required />
+          Credit/Debit Card
+        </label>
+
+        <label class="payment-method">
+          <input type="radio" name="paymentMethod" value="eft" />
+          EFT / Bank Transfer
+        </label>
+      </fieldset>
+
+      <!-- Card details - shown only if card selected -->
+      <div id="cardDetails" style="display:none;">
         <label>
-          Full Name*:
-          <input type="text" name="fullName" required />
+          Card Number*:
+          <input type="text" id="cardNumber" maxlength="19" placeholder="1234 5678 9012 3456" />
         </label>
 
         <label>
-          Email*:
-          <input type="email" name="email" required />
+          Expiry Date* (MM/YY):
+          <input type="text" id="expiryDate" maxlength="5" placeholder="MM/YY" />
         </label>
 
         <label>
-          Address*:
-          <input type="text" name="address" required />
+          CVV*:
+          <input type="text" id="cvv" maxlength="4" placeholder="123" />
         </label>
 
-        <!-- Payment method selection -->
-        <fieldset>
-          <legend>Payment Method*</legend>
-
-          <label class="payment-method">
-            <input type="radio" name="paymentMethod" value="card" id="card" required />
-            Credit/Debit Card
-          </label>
-
-          <label class="payment-method">
-            <input type="radio" name="paymentMethod" value="eft" />
-            EFT / Bank Transfer
-          </label>
-        </fieldset>
-
-        <!-- Card details - shown only if card selected -->
-        <div id="cardDetails" style="display:none;">
-          <label>
-            Card Number*:
-            <input type="text" id="cardNumber" maxlength="19" placeholder="1234 5678 9012 3456" />
-          </label>
-
-          <label>
-            Expiry Date* (MM/YY):
-            <input type="text" id="expiryDate" maxlength="5" placeholder="MM/YY" />
-          </label>
-
-          <label>
-            CVV*:
-            <input type="text" id="cvv" maxlength="4" placeholder="123" />
-          </label>
-
-          <label>
-            Name on Card*:
-            <input type="text" id="cardName" />
-          </label>
-        </div>
-
-        <button type="submit">Place Order</button>
-      </form>
-
-      <!-- Success message -->
-      <div id="successMessage" class="success-message" style="display:none;">
-        <h3>Thank you for your order!</h3>
-        <p>Your order number is <span id="orderNumber"></span>.</p>
-        <p>We will send you a confirmation email shortly.</p>
+        <label>
+          Name on Card*:
+          <input type="text" id="cardName" />
+        </label>
       </div>
-    </section>
 
-  </main>
+      <button type="submit">Place Order</button>
+    </form>
+
+    <!-- Success message -->
+    <div id="successMessage" class="success-message" style="display:none;">
+      <h3>Thank you for your order!</h3>
+      <p>Your order number is <span id="orderNumber"></span>.</p>
+      <p>We will send you a confirmation email shortly.</p>
+    </div>
+  </section>
 
   <footer>
     <p>© 2025 Pale Blom. All rights reserved.</p>
@@ -120,7 +118,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
