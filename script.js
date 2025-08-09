@@ -23,9 +23,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Products data
   const products = [
-    { id: 1, name: 'FOAM BATH (2L)', image: 'https://via.placeholder.com/150?text=Foam', price: 75 },
-    { id: 2, name: 'Soap', image: 'https://via.placeholder.com/150?text=Soap', price: 15 },
-    { id: 3, name: 'BATH SALT (450g)', image: 'https://via.placeholder.com/150?text=Bath+Salt', price: 40 }
+    { id: 1, name: 'FOAM BATH (2L)', image: 'Foam.png', price: 75 },
+    { id: 2, name: 'Soap', image: 'Soap.png', price: 15 },
+    { id: 3, name: 'BATH SALT (450g)', image: 'Salt.png', price: 40 }
   ];
 
   // Cart array: stores cart items aligned with products array indexes
@@ -357,6 +357,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   
  
+
 
 
 
