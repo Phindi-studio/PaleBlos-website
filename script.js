@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
   // DOM Elements
-  const toggle = document.getElementById('menu-toggle');
-  const navLinks = document.getElementById('nav-links');
   const openShopping = document.querySelector('.shopping');
   const closeShopping = document.querySelector('.closeshopping');
   const cart = document.querySelector('.card');
@@ -25,22 +23,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Products data
   const products = [
-    { id: 1, name: 'FOAM BATH (2L)', image: 'foam.png', price: 75 },
-    { id: 2, name: 'Soap', image: 'soap.png', price: 15 },
-    { id: 3, name: 'BATH SALT (450g)', image: 'salt.png', price: 40 }
+    { id: 1, name: 'FOAM BATH (2L)', image: 'https://via.placeholder.com/150?text=Foam', price: 75 },
+    { id: 2, name: 'Soap', image: 'https://via.placeholder.com/150?text=Soap', price: 15 },
+    { id: 3, name: 'BATH SALT (450g)', image: 'https://via.placeholder.com/150?text=Bath+Salt', price: 40 }
   ];
 
   // Cart array: stores cart items aligned with products array indexes
   let listCards = [];
-
-  // -------- Mobile menu toggle --------
-  if (toggle && navLinks) {
-    toggle.addEventListener('click', () => {
-      navLinks.classList.toggle('show');
-      const isVisible = navLinks.style.display === 'flex';
-      navLinks.style.display = isVisible ? 'none' : 'flex';
-    });
-  }
 
   // -------- Shopping cart toggle --------
   if (openShopping && closeShopping && cart) {
@@ -57,16 +46,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // -------- Initialize product listing --------
   function initApp() {
-    if (!list) {
-      console.warn('Product list container not found');
-      return;
-    }
+    if (!list) return;
+
+    list.innerHTML = ''; // Clear existing
 
     products.forEach((product, index) => {
       const newDiv = document.createElement('div');
       newDiv.classList.add('item');
       newDiv.innerHTML = `
-        <img src="images/${product.image}" alt="${product.name}" onerror="this.src='images/default.png'" />
+        <img src="${product.image}" alt="${product.name}" />
         <div class="title">${product.name}</div>
         <div class="price">R${product.price.toFixed(2)}</div>
         <button class="cta-button" data-index="${index}">Add To Cart</button>
@@ -85,10 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // -------- Add product to cart --------
   function addToCart(index) {
-    if (index < 0 || index >= products.length) {
-      console.error('Invalid product index:', index);
-      return;
-    }
+    if (index < 0 || index >= products.length) return;
 
     if (!listCards[index]) {
       listCards[index] = { ...products[index], quantity: 1 };
@@ -102,17 +87,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // -------- Reload cart UI --------
   function reloadCart() {
-    if (!listCard || !total || !quantity) {
-      console.warn('Cart elements not found');
-      return;
-    }
+    if (!listCard || !total || !quantity) return;
 
     listCard.innerHTML = '';
 
     let count = 0;
     let totalPrice = 0;
 
-    listCards = listCards.filter(item => item && item.quantity > 0); // Clean null/zero quantity items
+    listCards = listCards.filter(item => item && item.quantity > 0);
 
     listCards.forEach((item, index) => {
       totalPrice += item.price * item.quantity;
@@ -120,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const newLi = document.createElement('li');
       newLi.innerHTML = `
-        <div><img src="images/${item.image}" alt="${item.name}" onerror="this.src='images/default.png'" /></div>
+        <img src="${item.image}" alt="${item.name}" />
         <div>${item.name}</div>
         <div>R${item.price.toFixed(2)}</div>
         <div>
@@ -134,7 +116,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     total.innerText = `R${totalPrice.toFixed(2)}`;
     quantity.innerText = count;
-
 
     // Attach event listeners for + and - buttons
     listCard.querySelectorAll('.btn-decrease').forEach(btn => {
@@ -154,10 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // -------- Change item quantity --------
   function changeQuantity(index, newQuantity) {
-    if (index < 0 || index >= listCards.length) {
-      console.error('Invalid cart index:', index);
-      return;
-    }
+    if (index < 0 || index >= listCards.length) return;
 
     if (newQuantity <= 0) {
       listCards[index] = null;
@@ -203,35 +181,37 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // -------- Payment method UI logic --------
-  const paymentMethods = document.querySelectorAll('.payment-method');
-  if (paymentMethods.length > 0) {
-    paymentMethods.forEach(method => {
-      method.addEventListener('click', function () {
-        paymentMethods.forEach(m => m.classList.remove('selected'));
-        this.classList.add('selected');
+  if (checkoutForm) {
+    const paymentMethods = checkoutForm.querySelectorAll('.payment-method');
+    if (paymentMethods.length > 0) {
+      paymentMethods.forEach(method => {
+        method.addEventListener('click', function () {
+          paymentMethods.forEach(m => m.classList.remove('selected'));
+          this.classList.add('selected');
 
-        const radio = this.querySelector('input[type="radio"]');
-        if (radio) {
-          radio.checked = true;
+          const radio = this.querySelector('input[type="radio"]');
+          if (radio) {
+            radio.checked = true;
 
-          if (cardDetails) {
-            if (radio.value === 'card') {
-              cardDetails.style.display = 'block';
-              ['cardNumber', 'expiryDate', 'cvv', 'cardName'].forEach(id => {
-                const field = document.getElementById(id);
-                if (field) field.required = true;
-              });
-            } else {
-              cardDetails.style.display = 'none';
-              ['cardNumber', 'expiryDate', 'cvv', 'cardName'].forEach(id => {
-                const field = document.getElementById(id);
-                if (field) field.required = false;
-              });
+            if (cardDetails) {
+              if (radio.value === 'card') {
+                cardDetails.style.display = 'block';
+                ['cardNumber', 'expiryDate', 'cvv', 'cardName'].forEach(id => {
+                  const field = document.getElementById(id);
+                  if (field) field.required = true;
+                });
+              } else {
+                cardDetails.style.display = 'none';
+                ['cardNumber', 'expiryDate', 'cvv', 'cardName'].forEach(id => {
+                  const field = document.getElementById(id);
+                  if (field) field.required = false;
+                });
+              }
             }
           }
-        }
+        });
       });
-    });
+    }
   }
 
   // -------- Card input formatting --------
@@ -303,7 +283,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       if (successMessage) {
-        successMessage.classList.add('show');
+        successMessage.style.display = 'block';
       }
 
       // Hide form and reset inputs
@@ -348,12 +328,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const shipping = 65.00;
         const tax = subtotal * 0.15; // 15%
-        const total = subtotal + shipping + tax;
+        const totalVal = subtotal + shipping + tax;
 
         if (subtotalDisplay) subtotalDisplay.textContent = `R${subtotal.toFixed(2)}`;
         if (taxDisplay) taxDisplay.textContent = `R${tax.toFixed(2)}`;
         if (shippingDisplay) shippingDisplay.textContent = `R${shipping.toFixed(2)}`;
-        if (totalDisplay) totalDisplay.textContent = `R${total.toFixed(2)}`;
+        if (totalDisplay) totalDisplay.textContent = `R${totalVal.toFixed(2)}`;
       } else {
         orderItems.innerHTML = '<p>Your cart is empty</p>';
       }
@@ -366,9 +346,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // Initialize app functions
   initApp();
   loadCartFromStorage();
-  loadCheckoutItems();
   reloadCart();
+  loadCheckoutItems();
 });
+
 
 
 
@@ -376,6 +357,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   
  
+
 
 
 
