@@ -4,24 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Pale Blom | Checkout</title>
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    /* Minimal styling for demo */
-    body { font-family: Arial, sans-serif; margin:0; padding:20px; max-width: 600px; margin-left: auto; margin-right: auto; }
-    h1, h2 { text-align: center; }
-    .order-summary, .checkout-form-section { margin-bottom: 30px; }
-    #orderItems .order-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #eee; }
-    .totals div { margin: 6px 0; font-size: 16px; }
-    .totals strong { font-weight: bold; }
-    form label { display: block; margin-bottom: 10px; }
-    input[type="text"], input[type="email"] { width: 100%; padding: 6px; font-size: 14px; box-sizing: border-box; }
-    fieldset { border: 1px solid #ccc; padding: 10px; margin-bottom: 15px; }
-    legend { font-weight: bold; }
-    .payment-method { display: block; margin-bottom: 8px; cursor: pointer; }
-    #cardDetails { margin-bottom: 15px; }
-    button[type="submit"] { background: #f99; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; color: white; font-size: 16px; width: 100%; }
-    .success-message { background: #d4edda; padding: 15px; border-radius: 5px; color: #155724; margin-top: 20px; text-align: center; }
-  </style>
 </head>
 <body>
 
@@ -104,7 +86,7 @@
     </form>
 
     <!-- Success message -->
-    <div id="successMessage" class="success-message" style="display:none;">
+    <div id="successMessage" style="display:none;">
       <h3>Thank you for your order!</h3>
       <p>Your order number is <span id="orderNumber"></span>.</p>
       <p>We will send you a confirmation email shortly.</p>
