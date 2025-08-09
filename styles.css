@@ -1,274 +1,85 @@
 /* ===================================
-   CSS VARIABLES & RESET
+   Pale Blom Shop CSS
+   Clean & Blush Pink Themed
    =================================== */
 
+/* Root Variables */
 :root {
-  /* Colors */
-  --pearl-white: #FFF5F7;
-  --blush-pink: #FAD1D9;
-  --soft-rose: #F7A1B4;
-  --dusty-mauve: #C27D89;
-  --rich-berry: #92304D;
-  --silky-taupe: #A38A8C;
-  --vintage-pink: #FFE8F0;
-  --rosy-beige: #F4E1E6;
-  --vintage-pink-border: #E6B0B8;
-  --footer-bg: #FFE0EB;
-  --hero-text: #792C43;
-  --hero-text-light: #5e4751;
-  --checkout-primary: #8B4B6B;
-  --checkout-secondary: #5d4e37;
-  --form-bg: #f0e6d2;
-  --input-bg: #fafafa;
-  --input-border: #e8ddd4;
+  --color-bg: #FFF5F7;
+  --color-primary: #FAD1D9;
+  --color-secondary: #F7A1B4;
+  --color-accent: #C27D89;
+  --color-dark: #92304D;
+  --color-text: #A38A8C;
+  --color-text-dark: #5e4751;
+  --color-footer-bg: #FFE0EB;
 
-  /* Typography */
   --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  --line-height: 1.6;
-
-  /* Spacing */
-  --section-padding: 40px 0;
-  --container-max-width: 960px;
-
-  /* Transitions */
   --transition-fast: 0.3s ease;
-  --transition-transform: all 0.3s ease;
-
-  /* Shadows */
-  --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.05);
-  --shadow-medium: 0 10px 40px rgba(139, 75, 107, 0.1);
-  --shadow-cart: -2px 0 10px rgba(0, 0, 0, 0.1);
+  --max-width: 960px;
+  --border-radius: 10px;
+  --shadow-light: 0 4px 15px rgba(0,0,0,0.05);
+  --shadow-medium: 0 10px 40px rgba(194, 125, 137, 0.2);
 }
 
 /* Reset */
 *,
 *::before,
 *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  margin: 0; padding: 0; box-sizing: border-box;
 }
 
 body {
   font-family: var(--font-family);
-  background-color: var(--pearl-white);
-  color: var(--silky-taupe);
-  line-height: var(--line-height);
-  padding: 0 20px;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  padding: 20px;
   min-height: 100vh;
 }
 
-body.active {
-  overflow: hidden;
-}
-
-/* ===================================
-   NAVIGATION
-   =================================== */
-
+/* Navbar */
 nav.navbar {
-  background-color: var(--blush-pink);
+  background-color: var(--color-primary);
   padding: 1rem 2rem;
   position: sticky;
   top: 0;
   z-index: 999;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.nav-container {
+  box-shadow: var(--shadow-light);
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.logo {
+nav .logo {
   font-weight: 700;
-  font-size: 1.6rem;
-  color: var(--rich-berry);
-  text-decoration: none;
-}
-
-.menu-toggle {
-  display: none;
   font-size: 1.8rem;
-  cursor: pointer;
-  user-select: none;
-}
-
-.nav-links {
-  display: flex;
-  gap: 1.2rem;
-  list-style: none;
-}
-
-.nav-links a {
+  color: var(--color-dark);
   text-decoration: none;
-  color: var(--silky-taupe);
+}
+
+nav .nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+nav .nav-links a {
+  text-decoration: none;
+  color: var(--color-text);
   font-weight: 600;
-  padding: 0.4rem 0.8rem;
-  border-radius: 5px;
+  padding: 0.4rem 1rem;
+  border-radius: var(--border-radius);
   transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
-.nav-links a:hover,
-.nav-links a.active {
-  background-color: var(--soft-rose);
+nav .nav-links a:hover,
+nav .nav-links a.active {
+  background-color: var(--color-secondary);
   color: #fff;
 }
 
-/* Mobile Navigation */
-@media (max-width: 768px) {
-  .nav-links {
-    position: absolute;
-    top: 60px;
-    right: 20px;
-    background-color: var(--blush-pink);
-    flex-direction: column;
-    width: 60%;
-    padding: 15px;
-    border-radius: 8px;
-    display: none;
-    z-index: 1000;
-  }
-  .nav-links.show {
-    display: flex;
-  }
-  .menu-toggle {
-    display: block;
-  }
-}
-
-/* ===================================
-   HERO SECTION
-   =================================== */
-
-.hero-section {
-  background: url('images/floral-blush-bg.png') center/cover no-repeat;
-  padding: 60px 20px;
-  text-align: center;
-  border-radius: 16px;
-  margin-top: 20px;
-  color: var(--hero-text);
-  box-shadow: var(--shadow-light);
-}
-
-.hero-section h1 {
-  font-size: 2rem;
-  color: var(--rich-berry);
-  margin-bottom: 15px;
-}
-
-.hero-section p {
-  color: var(--hero-text-light);
-  max-width: 720px;
-  margin: 0 auto 15px;
-  font-size: 1rem;
-  line-height: var(--line-height);
-}
-
-.hero-section .button-primary {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 12px 25px;
-  background-color: var(--soft-rose);
-  color: #fff;
-  border: none;
-  border-radius: 30px;
-  font-weight: 700;
-  text-decoration: none;
-  transition: background-color var(--transition-fast);
-}
-
-.hero-section .button-primary:hover {
-  background-color: var(--dusty-mauve);
-}
-
-/* ===================================
-   LAYOUT & CONTAINERS
-   =================================== */
-
-.container,
-.checkout-container {
-  max-width: var(--container-max-width);
-  margin: auto;
-  padding: 2rem 1rem;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-/* ===================================
-   BUTTONS
-   =================================== */
-
-.button-primary,
-.cta-button {
-  display: inline-block;
-  background-color: var(--soft-rose);
-  color: white;
-  padding: 12px 24px;
-  text-decoration: none;
-  border-radius: 5px;
-  border: none;
-  font-size: 1rem;
-  transition: background-color var(--transition-fast);
-  cursor: pointer;
-}
-
-.button-primary:hover,
-.cta-button:hover {
-  background-color: var(--dusty-mauve);
-}
-
-.btn {
-  background: linear-gradient(135deg, var(--checkout-primary) 0%, #a55a7a 100%);
-  color: white;
-  border: none;
-  padding: 1rem 2rem;
-  border-radius: 10px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition-transform);
-  text-align: center;
-  display: inline-block;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(139, 75, 107, 0.3);
-}
-
-.btn-secondary {
-  background: transparent;
-  color: var(--checkout-primary);
-  border: 2px solid var(--checkout-primary);
-}
-
-.btn-secondary:hover {
-  background: var(--checkout-primary);
-  color: white;
-}
-
-.btn-full {
-  width: 100%;
-  margin-top: 2rem;
-}
-
-.button-group {
-  display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-/* ===================================
-   SHOPPING CART
-   =================================== */
-
+/* Shopping Cart Icon */
 .shopping {
   position: relative;
   cursor: pointer;
@@ -282,12 +93,89 @@ header {
   position: absolute;
   top: -8px;
   right: -8px;
-  background: var(--dusty-mauve);
-  color: white;
+  background-color: var(--color-accent);
+  color: #fff;
   border-radius: 50%;
-  padding: 2px 8px;
+  padding: 2px 7px;
   font-size: 12px;
   user-select: none;
+}
+
+/* Container */
+.container {
+  max-width: var(--max-width);
+  margin: 2rem auto;
+}
+
+/* Header Section */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  color: var(--color-dark);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* Product List */
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+/* Product Item */
+.item {
+  background-color: var(--color-primary);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-light);
+  padding: 15px;
+  text-align: center;
+  transition: box-shadow var(--transition-fast);
+  cursor: pointer;
+}
+
+.item:hover {
+  box-shadow: var(--shadow-medium);
+}
+
+.item img {
+  width: 100%;
+  max-width: 150px;
+  margin-bottom: 10px;
+  border-radius: var(--border-radius);
+  object-fit: contain;
+}
+
+.item .title {
+  font-weight: 700;
+  color: var(--color-dark);
+  margin-bottom: 8px;
+}
+
+.item .price {
+  color: var(--color-accent);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.item button {
+  background-color: var(--color-secondary);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.item button:hover {
+  background-color: var(--color-accent);
 }
 
 /* Cart Sidebar */
@@ -295,58 +183,62 @@ header {
   position: fixed;
   top: 0;
   right: 0;
-  background-color: var(--pearl-white);
-  width: 300px;
+  width: 320px;
   height: 100vh;
-  box-shadow: var(--shadow-cart);
+  background-color: var(--color-bg);
+  box-shadow: -3px 0 15px rgba(0,0,0,0.1);
   padding: 20px;
   overflow-y: auto;
-  display: none;
-  z-index: 9999;
-  transition: transform 0.3s ease;
   transform: translateX(100%);
+  transition: transform 0.3s ease;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
 }
 
 .card.show {
-  display: block;
   transform: translateX(0);
 }
 
 .card h1 {
-  margin-bottom: 15px;
-  color: var(--rich-berry);
+  color: var(--color-dark);
+  margin-bottom: 1rem;
+  font-weight: 700;
 }
 
 .closeshopping {
   position: absolute;
   top: 15px;
   right: 15px;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   cursor: pointer;
-  color: var(--rich-berry);
+  color: var(--color-dark);
 }
 
 .listCard {
   list-style: none;
+  flex-grow: 1;
+  overflow-y: auto;
   padding-left: 0;
 }
 
 .listCard li {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   margin-bottom: 15px;
 }
 
 .listCard img {
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
+  border-radius: var(--border-radius);
   object-fit: cover;
-  border-radius: 5px;
 }
 
 .count {
-  padding: 0 8px;
+  font-weight: 600;
+  padding: 0 10px;
 }
 
 .checkOut {
@@ -356,257 +248,60 @@ header {
 
 .total {
   font-weight: 700;
-  margin-bottom: 10px;
-  color: var(--dusty-mauve);
+  color: var(--color-accent);
+  font-size: 1.3rem;
+  margin-bottom: 15px;
 }
 
-/* ===================================
-   PRODUCTS
-   =================================== */
-
-.item {
-  background-color: var(--vintage-pink);
-  padding: 15px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  text-align: center;
-}
-
-.item img {
-  width: 100%;
-  max-width: 150px;
-  margin-bottom: 10px;
-  object-fit: contain;
-  border-radius: 5px;
-}
-
-.item .title {
+/* Checkout Button */
+.checkout-btn {
+  background-color: var(--color-secondary);
+  color: #fff;
+  padding: 12px 25px;
+  border-radius: var(--border-radius);
   font-weight: 700;
-  margin-bottom: 5px;
-  color: var(--rich-berry);
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color var(--transition-fast);
 }
 
-.item .price {
-  color: var(--dusty-mauve);
-  margin-bottom: 10px;
+.checkout-btn:hover {
+  background-color: var(--color-accent);
 }
 
-/* ===================================
-   CHECKOUT PAGE
-   =================================== */
-
-.checkout-container {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 2rem;
-  display: grid;
-  grid-template-columns: 1fr 400px;
-  gap: 3rem;
-}
-
-.checkout-container h1 {
-  color: var(--checkout-primary);
-  margin-bottom: 2rem;
-  font-size: 2.2rem;
-}
-
-.checkout-container h2 {
-  color: var(--checkout-secondary);
-  margin-bottom: 1.5rem;
-  font-size: 1.4rem;
-  border-bottom: 2px solid var(--form-bg);
-  padding-bottom: 0.5rem;
-}
-
-.order-summary {
-  grid-column: 2;
-  background: white;
-  border-radius: 20px;
-  padding: 2.5rem;
-  box-shadow: var(--shadow-medium);
-}
-
-.order-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 0;
-  border-bottom: 1px solid var(--form-bg);
-}
-
-.item-info {
-  flex: 1;
-}
-
-.item-name {
-  font-weight: 600;
-  color: var(--checkout-secondary);
-}
-
-.item-quantity {
-  color: #888;
-  font-size: 0.9rem;
-}
-
-.item-price {
-  font-weight: 700;
-  color: var(--checkout-primary);
-}
-
-.summary-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.5rem 0;
-}
-
-.summary-total {
-  border-top: 2px solid var(--checkout-primary);
-  margin-top: 1rem;
-  padding-top: 1rem;
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--checkout-primary);
-}
-
-.checkout-form-section {
-  grid-column: 1;
-  background: white;
-  border-radius: 20px;
-  padding: 2.5rem;
-  box-shadow: var(--shadow-medium);
-}
-
-.checkout-form-section form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.checkout-form-section label {
-  color: var(--checkout-secondary);
-  font-weight: 600;
-  display: flex;
-  flex-direction: column;
-}
-
-.checkout-form-section input[type="text"],
-.checkout-form-section input[type="email"],
-.checkout-form-section input[type="radio"],
-.checkout-form-section input[type="password"],
-.checkout-form-section select,
-.checkout-form-section textarea {
-  padding: 10px;
-  margin-top: 0.3rem;
-  border: 2px solid var(--input-border);
-  border-radius: 10px;
-  background: var(--input-bg);
-  font-size: 1rem;
-  transition: border-color var(--transition-fast);
-}
-
-.checkout-form-section input:focus,
-.checkout-form-section select:focus,
-.checkout-form-section textarea:focus {
-  border-color: var(--checkout-primary);
-  outline: none;
-  box-shadow: 0 0 5px rgba(139, 75, 107, 0.3);
-}
-
-fieldset {
-  border: none;
-  margin: 1rem 0;
-  padding: 0;
-}
-
-.payment-method {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px;
-  border: 2px solid var(--input-border);
-  border-radius: 10px;
-  cursor: pointer;
-  background: var(--input-bg);
-  transition: border-color var(--transition-fast);
-}
-
-/* Fix for selected payment method styling */
-.payment-method input:checked + .payment-method,
-.payment-method.selected,
-.payment-method input:checked {
-  border-color: var(--checkout-primary);
-  background: rgba(139, 75, 107, 0.1);
-  accent-color: var(--checkout-primary);
-}
-
-/* Better fix: because input is inside label.payment-method, style label when input checked */
-.payment-method input:checked {
-  accent-color: var(--checkout-primary);
-  border-color: var(--checkout-primary);
-  background: rgba(139, 75, 107, 0.1);
-}
-
-/* Because input is inside label, we can style label when input is checked */
-.payment-method input:checked ~ & {
-  border-color: var(--checkout-primary);
-  background: rgba(139, 75, 107, 0.1);
-}
-
-/* Show card details when card payment selected with smooth transition */
-#cardDetails {
-  margin-top: 1rem;
-  display: block; /* to enable transition */
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: opacity 0.3s ease, max-height 0.3s ease;
-}
-
-#card:checked ~ #cardDetails {
-  max-height: 500px; /* enough to show all content */
-  opacity: 1;
-}
-
-/* ===================================
-   FOOTER
-   =================================== */
-
+/* Footer */
 footer {
   text-align: center;
-  padding: 20px 0;
-  background-color: var(--footer-bg);
-  margin-top: 40px;
-  color: var(--silky-taupe);
+  padding: 25px 10px;
+  background-color: var(--color-footer-bg);
+  color: var(--color-text);
   font-size: 0.9rem;
+  margin-top: 40px;
+  user-select: none;
 }
 
-/* ===================================
-   RESPONSIVE DESIGN
-   =================================== */
-
-@media (max-width: 992px) {
-  .checkout-container {
-    grid-template-columns: 1fr;
-    padding: 1rem;
-  }
-  
-  .order-summary,
-  .checkout-form-section {
-    grid-column: unset;
-    margin-bottom: 2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .nav-links {
-    width: 80%;
+/* Responsive */
+@media (max-width: 768px) {
+  nav .nav-links {
+    display: none;
   }
 
-  .item img {
-    max-width: 100px;
+  nav .menu-toggle {
+    display: block;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--color-dark);
+  }
+
+  .list {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
 
   .shopping img {
     width: 25px;
+  }
+
+  .card {
+    width: 100%;
   }
 }
