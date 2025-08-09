@@ -1,4 +1,8 @@
-/* ==== Root Colors (Blush Pink Palette) ==== */
+/* =============================
+   Blush Pink Theme | Global Styles
+   ============================= */
+
+/* Root colors */
 :root {
   --pearl-white: #FFF5F7;
   --blush-pink: #FAD1D9;
@@ -8,46 +12,81 @@
   --silky-taupe: #9B8B8B;
   --text-color: #4B2A3A;
   --bg-color: var(--pearl-white);
+  --transition-speed: 0.3s;
 }
 
-/* ==== Global Reset ==== */
-* {
-  margin: 0;
-  padding: 0;
+/* Reset & base */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: var(--text-color);
-  background-color: var(--bg-color);
 }
 
 body {
+  margin: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* ==== Navbar ==== */
+/* Links */
+a {
+  color: var(--rich-berry);
+  text-decoration: none;
+  transition: color var(--transition-speed);
+}
+
+a:hover,
+a:focus {
+  color: var(--dusty-mauve);
+  outline: none;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  flex-grow: 1;
+}
+
+/* ==============================
+   Navbar
+   ============================== */
+
 .navbar {
   background-color: var(--blush-pink);
   box-shadow: 0 2px 5px rgba(194, 125, 137, 0.3);
-  padding: 1rem 2rem;
   position: sticky;
   top: 0;
-  z-index: 999;
+  z-index: 9999;
 }
 
 .nav-container {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 1rem 2rem;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
 }
 
 .logo {
-  font-weight: 700;
   font-size: 1.8rem;
+  font-weight: 700;
   color: var(--rich-berry);
-  text-decoration: none;
+}
+
+.menu-toggle {
+  font-size: 2rem;
+  cursor: pointer;
+  display: none; /* hidden by default, shown on small screens */
+  color: var(--rich-berry);
+  user-select: none;
 }
 
 .nav-links {
@@ -57,65 +96,103 @@ body {
 }
 
 .nav-links li a {
-  text-decoration: none;
-  color: var(--rich-berry);
   font-weight: 600;
-  padding: 0.3rem 0.6rem;
+  padding: 0.4rem 0.8rem;
   border-radius: 6px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+  color: var(--rich-berry);
 }
 
+.nav-links li a.active,
 .nav-links li a:hover,
-.nav-links li a.active {
+.nav-links li a:focus {
   background-color: var(--soft-rose);
   color: var(--dusty-mauve);
+  outline: none;
 }
 
-/* ==== Buttons ==== */
-.button-primary,
-.cta-button {
-  background-color: var(--dusty-mauve);
-  color: var(--pearl-white);
-  border: none;
-  padding: 0.6rem 1.5rem;
-  border-radius: 30px;
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  transition: background-color 0.3s ease;
+/* Responsive Navbar */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: var(--blush-pink);
+    flex-direction: column;
+    width: 200px;
+    border-radius: 0 0 0 10px;
+    padding: 1rem 1.5rem;
+    box-shadow: -4px 6px 12px rgba(194, 125, 137, 0.3);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+
+  .nav-links.show {
+    max-height: 300px;
+  }
+
+  .nav-links li {
+    margin-bottom: 1rem;
+  }
 }
 
-.button-primary:hover,
-.cta-button:hover {
-  background-color: var(--rich-berry);
-}
+/* ==============================
+   Headings & Typography
+   ============================== */
 
-/* ==== Headings ==== */
-h1, h2, h3 {
+h1, h2, h3, h4 {
   color: var(--rich-berry);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.8rem;
   font-weight: 700;
 }
 
-/* ==== Paragraphs ==== */
 p {
   margin-bottom: 1rem;
   color: var(--silky-taupe);
   font-size: 1rem;
 }
 
-/* ==== Containers ==== */
-.container {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+/* ==============================
+   Buttons
+   ============================== */
+
+.button-primary,
+.cta-button,
+button,
+input[type="submit"] {
+  background-color: var(--dusty-mauve);
+  color: var(--pearl-white);
+  border: none;
+  border-radius: 30px;
+  padding: 0.6rem 1.5rem;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color var(--transition-speed);
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
 }
 
-/* ==== Forms ==== */
+.button-primary:hover,
+.cta-button:hover,
+button:hover,
+input[type="submit"]:hover {
+  background-color: var(--rich-berry);
+}
+
+/* ==============================
+   Forms & Inputs
+   ============================== */
+
 input[type="text"],
 input[type="email"],
+input[type="password"],
 textarea,
 select {
   width: 100%;
@@ -124,18 +201,194 @@ select {
   border: 2px solid var(--blush-pink);
   border-radius: 8px;
   font-size: 1rem;
-  transition: border-color 0.3s ease;
+  transition: border-color var(--transition-speed);
+  font-family: inherit;
+  resize: vertical;
 }
 
 input[type="text"]:focus,
 input[type="email"]:focus,
+input[type="password"]:focus,
 textarea:focus,
 select:focus {
   border-color: var(--dusty-mauve);
   outline: none;
 }
 
-/* ==== Footer ==== */
+/* Labels */
+label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+  color: var(--rich-berry);
+}
+
+/* Fieldset */
+fieldset {
+  border: 1.5px solid var(--blush-pink);
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+}
+
+legend {
+  padding: 0 0.5rem;
+  font-weight: 700;
+  color: var(--rich-berry);
+}
+
+/* ==============================
+   Tables
+   ============================== */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+th,
+td {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--blush-pink);
+  text-align: left;
+  color: var(--dusty-mauve);
+}
+
+th {
+  background-color: var(--soft-rose);
+  font-weight: 700;
+  color: var(--rich-berry);
+}
+
+/* ==============================
+   Order Summary, Cart & Sidebar
+   ============================== */
+
+.order-summary {
+  background-color: var(--pearl-white);
+  border: 1px solid var(--soft-rose);
+  border-radius: 10px;
+  padding: 1.5rem;
+  max-width: 600px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 8px rgba(194, 125, 137, 0.1);
+}
+
+.order-summary h2 {
+  margin-bottom: 1rem;
+}
+
+.order-summary .totals > div {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem 0;
+  font-weight: 600;
+  color: var(--dusty-mauve);
+}
+
+.order-summary .totals strong {
+  color: var(--rich-berry);
+}
+
+/* Cart sidebar (for shop page) */
+.card {
+  position: fixed;
+  top: 0;
+  right: -350px;
+  width: 320px;
+  height: 100vh;
+  background-color: var(--pearl-white);
+  box-shadow: -2px 0 12px rgba(194, 125, 137, 0.3);
+  padding: 2rem 1.5rem 1.5rem;
+  transition: right 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  z-index: 1100;
+}
+
+.card.active {
+  right: 0;
+}
+
+.card h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--rich-berry);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.closeshopping {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 2rem;
+  color: var(--dusty-mauve);
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+.closeshopping:hover {
+  color: var(--rich-berry);
+}
+
+.listCard {
+  list-style: none;
+  overflow-y: auto;
+  flex-grow: 1;
+  padding-right: 5px;
+  margin-bottom: 1rem;
+}
+
+.listCard li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--soft-rose);
+  padding-bottom: 0.5rem;
+}
+
+.listCard li span {
+  color: var(--dusty-mauve);
+  font-weight: 600;
+}
+
+.checkOut {
+  border-top: 1px solid var(--soft-rose);
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkOut .total {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--rich-berry);
+}
+
+.checkout-btn {
+  background-color: var(--dusty-mauve);
+  color: var(--pearl-white);
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color var(--transition-speed);
+}
+
+.checkout-btn:hover {
+  background-color: var(--rich-berry);
+}
+
+/* ==============================
+   Footer
+   ============================== */
+
 .footer,
 footer {
   background-color: var(--blush-pink);
@@ -146,19 +399,39 @@ footer {
   margin-top: auto;
 }
 
-/* ==== Utility ==== */
-.text-center {
-  text-align: center;
-}
+/* ==============================
+   Responsive Design
+   ============================== */
 
-/* ==== Responsive ==== */
 @media (max-width: 768px) {
   .nav-links {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: var(--blush-pink);
     flex-direction: column;
-    gap: 0.8rem;
+    width: 200px;
+    border-radius: 0 0 0 10px;
+    padding: 1rem 1.5rem;
+    box-shadow: -4px 6px 12px rgba(194, 125, 137, 0.3);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
   }
 
-  .nav-container {
-    flex-wrap: wrap;
+  .nav-links.show {
+    max-height: 300px;
+  }
+
+  .nav-links li {
+    margin-bottom: 1rem;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .container {
+    padding: 1rem;
   }
 }
