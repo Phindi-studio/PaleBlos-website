@@ -1,374 +1,126 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // DOM Elements
-  const toggle = document.getElementById('menu-toggle');
-  const navLinks = document.getElementById('nav-links');
-  const openShopping = document.querySelector('.shopping');
-  const closeShopping = document.querySelector('.closeshopping');
-  const cart = document.querySelector('.card');
-  const body = document.querySelector('body');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pale Blom | Checkout</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
 
-  const list = document.querySelector('.list');
-  const listCard = document.querySelector('.listCard');
-  const total = document.querySelector('.total');
-  const quantity = document.querySelector('.quantity');
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">Pale Blom</a>
+      <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="product-info.html">Product Info</a></li>
+      </ul>
+    </div>
+  </nav>
 
-  const checkoutForm = document.getElementById('checkoutForm');
-  const successMessage = document.getElementById('successMessage');
-  const orderNumberEl = document.getElementById('orderNumber');
-  const cardRadio = document.getElementById('card');
-  const cardDetails = document.getElementById('cardDetails');
-  const totalDisplay = document.getElementById('total');
-  const taxDisplay = document.getElementById('tax');
-  const shippingDisplay = document.getElementById('shipping');
-  const subtotalDisplay = document.getElementById('subtotal');
-  const orderItems = document.getElementById('orderItems');
+  <main class="checkout-container">
 
-  // Products data
-  const products = [
-    { id: 1, name: 'FOAM BATH (2L)', image: 'foam.png', price: 75 },
-    { id: 2, name: 'Soap', image: 'soap.png', price: 15 },
-    { id: 3, name: 'BATH SALT (450g)', image: 'salt.png', price: 40 }
-  ];
+    <h1>Checkout</h1>
 
-  // Cart array: stores cart items aligned with products array indexes
-  let listCards = [];
+    <!-- Order summary -->
+    <section class="order-summary">
+      <h2>Your Order</h2>
+      <div id="orderItems">
+        <!-- Cart items will be injected here by JS -->
+      </div>
 
-  // -------- Mobile menu toggle --------
-  if (toggle && navLinks) {
-    toggle.addEventListener('click', () => {
-      navLinks.classList.toggle('show');
-      const isVisible = navLinks.style.display === 'flex';
-      navLinks.style.display = isVisible ? 'none' : 'flex';
-    });
-  }
+      <div class="totals">
+        <div>Subtotal: <span id="subtotal">R0.00</span></div>
+        <div>Tax (15%): <span id="tax">R0.00</span></div>
+        <div>Shipping: <span id="shipping">R65.00</span></div>
+        <div><strong>Total: <span id="total">R0.00</span></strong></div>
+      </div>
+    </section>
 
-  // -------- Shopping cart toggle --------
-  if (openShopping && closeShopping && cart) {
-    openShopping.addEventListener('click', () => {
-      cart.classList.add('show');
-      body.classList.add('active');
-    });
+    <!-- Checkout form -->
+    <section class="checkout-form-section">
+      <h2>Payment & Shipping Details</h2>
+      <form id="checkoutForm" novalidate>
 
-    closeShopping.addEventListener('click', () => {
-      cart.classList.remove('show');
-      body.classList.remove('active');
-    });
-  }
+        <label>
+          Full Name*:
+          <input type="text" name="fullName" required />
+        </label>
 
-  // -------- Initialize product listing --------
-  function initApp() {
-    if (!list) {
-      console.warn('Product list container not found');
-      return;
-    }
+        <label>
+          Email*:
+          <input type="email" name="email" required />
+        </label>
 
-    products.forEach((product, index) => {
-      const newDiv = document.createElement('div');
-      newDiv.classList.add('item');
-      newDiv.innerHTML = `
-        <img src="images/${product.image}" alt="${product.name}" onerror="this.src='images/default.png'" />
-        <div class="title">${product.name}</div>
-        <div class="price">R${product.price.toFixed(2)}</div>
-        <button class="cta-button" data-index="${index}">Add To Cart</button>
-      `;
-      list.appendChild(newDiv);
-    });
+        <label>
+          Address*:
+          <input type="text" name="address" required />
+        </label>
 
-    // Add event listeners for all add-to-cart buttons
-    list.querySelectorAll('.cta-button').forEach(button => {
-      button.addEventListener('click', () => {
-        const index = parseInt(button.getAttribute('data-index'), 10);
-        addToCart(index);
-      });
-    });
-  }
+        <!-- Payment method selection -->
+        <fieldset>
+          <legend>Payment Method*</legend>
 
-  // -------- Add product to cart --------
-  function addToCart(index) {
-    if (index < 0 || index >= products.length) {
-      console.error('Invalid product index:', index);
-      return;
-    }
+          <label class="payment-method">
+            <input type="radio" name="paymentMethod" value="card" id="card" required />
+            Credit/Debit Card
+          </label>
 
-    if (!listCards[index]) {
-      listCards[index] = { ...products[index], quantity: 1 };
-    } else {
-      listCards[index].quantity++;
-    }
+          <label class="payment-method">
+            <input type="radio" name="paymentMethod" value="eft" />
+            EFT / Bank Transfer
+          </label>
+        </fieldset>
 
-    saveCartToStorage();
-    reloadCart();
-  }
+        <!-- Card details - shown only if card selected -->
+        <div id="cardDetails" style="display:none;">
+          <label>
+            Card Number*:
+            <input type="text" id="cardNumber" maxlength="19" placeholder="1234 5678 9012 3456" />
+          </label>
 
-  // -------- Reload cart UI --------
-  function reloadCart() {
-    if (!listCard || !total || !quantity) {
-      console.warn('Cart elements not found');
-      return;
-    }
+          <label>
+            Expiry Date* (MM/YY):
+            <input type="text" id="expiryDate" maxlength="5" placeholder="MM/YY" />
+          </label>
 
-    listCard.innerHTML = '';
+          <label>
+            CVV*:
+            <input type="text" id="cvv" maxlength="4" placeholder="123" />
+          </label>
 
-    let count = 0;
-    let totalPrice = 0;
-
-    listCards = listCards.filter(item => item && item.quantity > 0); // Clean null/zero quantity items
-
-    listCards.forEach((item, index) => {
-      totalPrice += item.price * item.quantity;
-      count += item.quantity;
-
-      const newLi = document.createElement('li');
-      newLi.innerHTML = `
-        <div><img src="images/${item.image}" alt="${item.name}" onerror="this.src='images/default.png'" /></div>
-        <div>${item.name}</div>
-        <div>R${item.price.toFixed(2)}</div>
-        <div>
-          <button class="btn-decrease" data-index="${index}">-</button>
-          <span class="count">${item.quantity}</span>
-          <button class="btn-increase" data-index="${index}">+</button>
+          <label>
+            Name on Card*:
+            <input type="text" id="cardName" />
+          </label>
         </div>
-      `;
-      listCard.appendChild(newLi);
-    });
 
-    total.innerText = `R${totalPrice.toFixed(2)}`;
-    quantity.innerText = count;
+        <button type="submit">Place Order</button>
+      </form>
 
+      <!-- Success message -->
+      <div id="successMessage" class="success-message" style="display:none;">
+        <h3>Thank you for your order!</h3>
+        <p>Your order number is <span id="orderNumber"></span>.</p>
+        <p>We will send you a confirmation email shortly.</p>
+      </div>
+    </section>
 
-    // Attach event listeners for + and - buttons
-    listCard.querySelectorAll('.btn-decrease').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const idx = parseInt(btn.getAttribute('data-index'), 10);
-        changeQuantity(idx, listCards[idx].quantity - 1);
-      });
-    });
+  </main>
 
-    listCard.querySelectorAll('.btn-increase').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const idx = parseInt(btn.getAttribute('data-index'), 10);
-        changeQuantity(idx, listCards[idx].quantity + 1);
-      });
-    });
-  }
+  <footer>
+    <p>© 2025 Pale Blom. All rights reserved.</p>
+  </footer>
 
-  // -------- Change item quantity --------
-  function changeQuantity(index, newQuantity) {
-    if (index < 0 || index >= listCards.length) {
-      console.error('Invalid cart index:', index);
-      return;
-    }
+  <script src="script.js"></script>
+</body>
+</html>
 
-    if (newQuantity <= 0) {
-      listCards[index] = null;
-    } else {
-      if (listCards[index]) {
-        listCards[index].quantity = newQuantity;
-      }
-    }
-
-    saveCartToStorage();
-    reloadCart();
-  }
-
-  // -------- Cart persistence --------
-  function saveCartToStorage() {
-    try {
-      const validItems = listCards.filter(item => item && item.quantity > 0);
-      localStorage.setItem('cart', JSON.stringify(validItems));
-    } catch (error) {
-      console.error('Failed to save cart to localStorage:', error);
-    }
-  }
-
-  function loadCartFromStorage() {
-    try {
-      const savedCart = localStorage.getItem('cart');
-      if (savedCart) {
-        const cartItems = JSON.parse(savedCart);
-        listCards = new Array(products.length).fill(null);
-
-        cartItems.forEach(item => {
-          const productIndex = products.findIndex(p => p.id === item.id);
-          if (productIndex !== -1) {
-            listCards[productIndex] = item;
-          }
-        });
-
-        reloadCart();
-      }
-    } catch (error) {
-      console.error('Failed to load cart from localStorage:', error);
-    }
-  }
-
-  // -------- Payment method UI logic --------
-  const paymentMethods = document.querySelectorAll('.payment-method');
-  if (paymentMethods.length > 0) {
-    paymentMethods.forEach(method => {
-      method.addEventListener('click', function () {
-        paymentMethods.forEach(m => m.classList.remove('selected'));
-        this.classList.add('selected');
-
-        const radio = this.querySelector('input[type="radio"]');
-        if (radio) {
-          radio.checked = true;
-
-          if (cardDetails) {
-            if (radio.value === 'card') {
-              cardDetails.style.display = 'block';
-              ['cardNumber', 'expiryDate', 'cvv', 'cardName'].forEach(id => {
-                const field = document.getElementById(id);
-                if (field) field.required = true;
-              });
-            } else {
-              cardDetails.style.display = 'none';
-              ['cardNumber', 'expiryDate', 'cvv', 'cardName'].forEach(id => {
-                const field = document.getElementById(id);
-                if (field) field.required = false;
-              });
-            }
-          }
-        }
-      });
-    });
-  }
-
-  // -------- Card input formatting --------
-  const cardNumberField = document.getElementById('cardNumber');
-  if (cardNumberField) {
-    cardNumberField.addEventListener('input', e => {
-      let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-      value = value.substring(0, 16);
-      const formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
-      e.target.value = formattedValue;
-    });
-  }
-
-  const expiryField = document.getElementById('expiryDate');
-  if (expiryField) {
-    expiryField.addEventListener('input', e => {
-      let value = e.target.value.replace(/\D/g, '');
-      if (value.length > 2) {
-        value = value.substring(0, 2) + '/' + value.substring(2, 4);
-      }
-      e.target.value = value;
-    });
-  }
-
-  const cvvField = document.getElementById('cvv');
-  if (cvvField) {
-    cvvField.addEventListener('input', e => {
-      let value = e.target.value.replace(/\D/g, '');
-      e.target.value = value.substring(0, 4);
-    });
-  }
-
-  // -------- Checkout form submission --------
-  if (checkoutForm) {
-    checkoutForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      if (!this.checkValidity()) {
-        this.reportValidity();
-        return;
-      }
-
-      // Check required fields manually (in case HTML5 validation is bypassed)
-      const requiredFields = this.querySelectorAll('[required]');
-      for (let field of requiredFields) {
-        if (!field.value.trim()) {
-          alert('⚠️ Please complete all required fields.');
-          return;
-        }
-      }
-
-      // If card payment selected, validate card details
-      if (cardRadio && cardRadio.checked) {
-        const cardNumber = document.getElementById('cardNumber').value.trim();
-        const expiryDate = document.getElementById('expiryDate').value.trim();
-        const cvv = document.getElementById('cvv').value.trim();
-        const cardName = document.getElementById('cardName').value.trim();
-
-        if (!cardNumber || !expiryDate || !cvv || !cardName) {
-          alert('⚠️ Please fill in all card details.');
-          return;
-        }
-      }
-
-      // Generate order number & show success message
-      if (orderNumberEl) {
-        const orderNumber = 'PB' + Math.random().toString(36).substr(2, 9).toUpperCase();
-        orderNumberEl.textContent = orderNumber;
-      }
-
-      if (successMessage) {
-        successMessage.classList.add('show');
-      }
-
-      // Hide form and reset inputs
-      this.style.display = 'none';
-      this.reset();
-      if (cardDetails) cardDetails.style.display = 'none';
-
-      // Clear cart after delay
-      setTimeout(() => {
-        localStorage.removeItem('cart');
-        listCards = [];
-        reloadCart();
-      }, 2000);
-    });
-  }
-
-  // -------- Load cart items on checkout page --------
-  function loadCheckoutItems() {
-    if (!orderItems) return;
-
-    try {
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      if (cart.length > 0) {
-        orderItems.innerHTML = '';
-
-        let subtotal = 0;
-
-        cart.forEach(item => {
-          const itemTotal = item.price * item.quantity;
-          subtotal += itemTotal;
-
-          orderItems.innerHTML += `
-            <div class="order-item">
-              <div class="item-info">
-                <div class="item-name">${item.name}</div>
-                <div class="item-quantity">Qty: ${item.quantity}</div>
-              </div>
-              <div class="item-price">R${itemTotal.toFixed(2)}</div>
-            </div>
-          `;
-        });
-
-        const shipping = 65.00;
-        const tax = subtotal * 0.15; // 15%
-        const total = subtotal + shipping + tax;
-
-        if (subtotalDisplay) subtotalDisplay.textContent = `R${subtotal.toFixed(2)}`;
-        if (taxDisplay) taxDisplay.textContent = `R${tax.toFixed(2)}`;
-        if (shippingDisplay) shippingDisplay.textContent = `R${shipping.toFixed(2)}`;
-        if (totalDisplay) totalDisplay.textContent = `R${total.toFixed(2)}`;
-      } else {
-        orderItems.innerHTML = '<p>Your cart is empty</p>';
-      }
-    } catch (error) {
-      console.error('Failed to load checkout items:', error);
-      orderItems.innerHTML = '<p>Error loading cart items</p>';
-    }
-  }
-
-  // Initialize app functions
-  initApp();
-  loadCartFromStorage();
-  loadCheckoutItems();
-  reloadCart();
-});
 
 
 
