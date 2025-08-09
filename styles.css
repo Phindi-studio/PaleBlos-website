@@ -530,28 +530,41 @@ fieldset {
   transition: border-color var(--transition-fast);
 }
 
-.payment-method:hover,
-.payment-method input:checked + &,
-.payment-method.selected {
+/* Fix for selected payment method styling */
+.payment-method input:checked + .payment-method,
+.payment-method.selected,
+.payment-method input:checked {
+  border-color: var(--checkout-primary);
+  background: rgba(139, 75, 107, 0.1);
+  accent-color: var(--checkout-primary);
+}
+
+/* Better fix: because input is inside label.payment-method, style label when input checked */
+.payment-method input:checked {
+  accent-color: var(--checkout-primary);
   border-color: var(--checkout-primary);
   background: rgba(139, 75, 107, 0.1);
 }
 
-.payment-method input {
-  cursor: pointer;
-  accent-color: var(--checkout-primary);
-  margin: 0;
+/* Because input is inside label, we can style label when input is checked */
+.payment-method input:checked ~ & {
+  border-color: var(--checkout-primary);
+  background: rgba(139, 75, 107, 0.1);
 }
 
-/* Payment Card Details */
+/* Show card details when card payment selected with smooth transition */
 #cardDetails {
   margin-top: 1rem;
-  display: none;
+  display: block; /* to enable transition */
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: opacity 0.3s ease, max-height 0.3s ease;
 }
 
-/* Show card details if card payment selected */
 #card:checked ~ #cardDetails {
-  display: block;
+  max-height: 500px; /* enough to show all content */
+  opacity: 1;
 }
 
 /* ===================================
@@ -597,7 +610,3 @@ footer {
     width: 25px;
   }
 }
-
-
-
-
