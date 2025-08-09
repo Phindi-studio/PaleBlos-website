@@ -1,307 +1,164 @@
-/* ===================================
-   Pale Blom Shop CSS
-   Clean & Blush Pink Themed
-   =================================== */
-
-/* Root Variables */
+/* ==== Root Colors (Blush Pink Palette) ==== */
 :root {
-  --color-bg: #FFF5F7;
-  --color-primary: #FAD1D9;
-  --color-secondary: #F7A1B4;
-  --color-accent: #C27D89;
-  --color-dark: #92304D;
-  --color-text: #A38A8C;
-  --color-text-dark: #5e4751;
-  --color-footer-bg: #FFE0EB;
-
-  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  --transition-fast: 0.3s ease;
-  --max-width: 960px;
-  --border-radius: 10px;
-  --shadow-light: 0 4px 15px rgba(0,0,0,0.05);
-  --shadow-medium: 0 10px 40px rgba(194, 125, 137, 0.2);
+  --pearl-white: #FFF5F7;
+  --blush-pink: #FAD1D9;
+  --soft-rose: #F7A1B4;
+  --dusty-mauve: #C27D89;
+  --rich-berry: #92304D;
+  --silky-taupe: #9B8B8B;
+  --text-color: #4B2A3A;
+  --bg-color: var(--pearl-white);
 }
 
-/* Reset */
-*,
-*::before,
-*::after {
-  margin: 0; padding: 0; box-sizing: border-box;
+/* ==== Global Reset ==== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-color);
+  background-color: var(--bg-color);
 }
 
 body {
-  font-family: var(--font-family);
-  background-color: var(--color-bg);
-  color: var(--color-text);
   line-height: 1.6;
-  padding: 20px;
   min-height: 100vh;
 }
 
-/* Navbar */
-nav.navbar {
-  background-color: var(--color-primary);
+/* ==== Navbar ==== */
+.navbar {
+  background-color: var(--blush-pink);
+  box-shadow: 0 2px 5px rgba(194, 125, 137, 0.3);
   padding: 1rem 2rem;
   position: sticky;
   top: 0;
   z-index: 999;
-  box-shadow: var(--shadow-light);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
-nav .logo {
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
   font-weight: 700;
   font-size: 1.8rem;
-  color: var(--color-dark);
+  color: var(--rich-berry);
   text-decoration: none;
 }
 
-nav .nav-links {
+.nav-links {
   list-style: none;
   display: flex;
   gap: 1.5rem;
 }
 
-nav .nav-links a {
+.nav-links li a {
   text-decoration: none;
-  color: var(--color-text);
+  color: var(--rich-berry);
   font-weight: 600;
-  padding: 0.4rem 1rem;
-  border-radius: var(--border-radius);
-  transition: background-color var(--transition-fast), color var(--transition-fast);
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-nav .nav-links a:hover,
-nav .nav-links a.active {
-  background-color: var(--color-secondary);
-  color: #fff;
+.nav-links li a:hover,
+.nav-links li a.active {
+  background-color: var(--soft-rose);
+  color: var(--dusty-mauve);
 }
 
-/* Shopping Cart Icon */
-.shopping {
-  position: relative;
-  cursor: pointer;
-}
-
-.shopping img {
-  width: 30px;
-}
-
-.quantity {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background-color: var(--color-accent);
-  color: #fff;
-  border-radius: 50%;
-  padding: 2px 7px;
-  font-size: 12px;
-  user-select: none;
-}
-
-/* Container */
-.container {
-  max-width: var(--max-width);
-  margin: 2rem auto;
-}
-
-/* Header Section */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-header h1 {
-  color: var(--color-dark);
-  font-size: 2rem;
-  font-weight: 700;
-}
-
-/* Product List */
-.list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 20px;
-}
-
-/* Product Item */
-.item {
-  background-color: var(--color-primary);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-light);
-  padding: 15px;
-  text-align: center;
-  transition: box-shadow var(--transition-fast);
-  cursor: pointer;
-}
-
-.item:hover {
-  box-shadow: var(--shadow-medium);
-}
-
-.item img {
-  width: 100%;
-  max-width: 150px;
-  margin-bottom: 10px;
-  border-radius: var(--border-radius);
-  object-fit: contain;
-}
-
-.item .title {
-  font-weight: 700;
-  color: var(--color-dark);
-  margin-bottom: 8px;
-}
-
-.item .price {
-  color: var(--color-accent);
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-
-.item button {
-  background-color: var(--color-secondary);
+/* ==== Buttons ==== */
+.button-primary,
+.cta-button {
+  background-color: var(--dusty-mauve);
+  color: var(--pearl-white);
   border: none;
-  color: white;
-  padding: 10px 20px;
-  border-radius: var(--border-radius);
-  font-weight: 600;
+  padding: 0.6rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background-color var(--transition-fast);
-}
-
-.item button:hover {
-  background-color: var(--color-accent);
-}
-
-/* Cart Sidebar */
-.card {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 320px;
-  height: 100vh;
-  background-color: var(--color-bg);
-  box-shadow: -3px 0 15px rgba(0,0,0,0.1);
-  padding: 20px;
-  overflow-y: auto;
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
-  z-index: 10000;
-  display: flex;
-  flex-direction: column;
-}
-
-.card.show {
-  transform: translateX(0);
-}
-
-.card h1 {
-  color: var(--color-dark);
-  margin-bottom: 1rem;
-  font-weight: 700;
-}
-
-.closeshopping {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  font-size: 1.8rem;
-  cursor: pointer;
-  color: var(--color-dark);
-}
-
-.listCard {
-  list-style: none;
-  flex-grow: 1;
-  overflow-y: auto;
-  padding-left: 0;
-}
-
-.listCard li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 15px;
-}
-
-.listCard img {
-  width: 45px;
-  height: 45px;
-  border-radius: var(--border-radius);
-  object-fit: cover;
-}
-
-.count {
-  font-weight: 600;
-  padding: 0 10px;
-}
-
-.checkOut {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.total {
-  font-weight: 700;
-  color: var(--color-accent);
-  font-size: 1.3rem;
-  margin-bottom: 15px;
-}
-
-/* Checkout Button */
-.checkout-btn {
-  background-color: var(--color-secondary);
-  color: #fff;
-  padding: 12px 25px;
-  border-radius: var(--border-radius);
-  font-weight: 700;
   text-decoration: none;
   display: inline-block;
-  transition: background-color var(--transition-fast);
+  transition: background-color 0.3s ease;
 }
 
-.checkout-btn:hover {
-  background-color: var(--color-accent);
+.button-primary:hover,
+.cta-button:hover {
+  background-color: var(--rich-berry);
 }
 
-/* Footer */
+/* ==== Headings ==== */
+h1, h2, h3 {
+  color: var(--rich-berry);
+  margin-bottom: 0.6rem;
+  font-weight: 700;
+}
+
+/* ==== Paragraphs ==== */
+p {
+  margin-bottom: 1rem;
+  color: var(--silky-taupe);
+  font-size: 1rem;
+}
+
+/* ==== Containers ==== */
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* ==== Forms ==== */
+input[type="text"],
+input[type="email"],
+textarea,
+select {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  margin-bottom: 1rem;
+  border: 2px solid var(--blush-pink);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--dusty-mauve);
+  outline: none;
+}
+
+/* ==== Footer ==== */
+.footer,
 footer {
+  background-color: var(--blush-pink);
+  color: var(--rich-berry);
   text-align: center;
-  padding: 25px 10px;
-  background-color: var(--color-footer-bg);
-  color: var(--color-text);
+  padding: 1rem 2rem;
   font-size: 0.9rem;
-  margin-top: 40px;
-  user-select: none;
+  margin-top: auto;
 }
 
-/* Responsive */
+/* ==== Utility ==== */
+.text-center {
+  text-align: center;
+}
+
+/* ==== Responsive ==== */
 @media (max-width: 768px) {
-  nav .nav-links {
-    display: none;
+  .nav-links {
+    flex-direction: column;
+    gap: 0.8rem;
   }
 
-  nav .menu-toggle {
-    display: block;
-    font-size: 1.8rem;
-    cursor: pointer;
-    color: var(--color-dark);
-  }
-
-  .list {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  }
-
-  .shopping img {
-    width: 25px;
-  }
-
-  .card {
-    width: 100%;
+  .nav-container {
+    flex-wrap: wrap;
   }
 }
