@@ -763,5 +763,65 @@ input:focus {
   color: white;
   box-shadow: 0 4px 12px rgba(146, 48, 77, 0.5);
 }
+.payment-instructions {
+  background-color: #fff5f7; /* very light blush pink */
+  border: 2px solid #f7a1b4; /* soft rose border */
+  border-radius: 12px;
+  padding: 24px 30px;
+  max-width: 600px;
+  margin: 40px auto;
+  box-shadow: 0 4px 10px rgba(201, 125, 140, 0.2);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #3a2c3d; /* deep dusty mauve for text */
+  line-height: 1.5;
+  text-align: left;
+}
+
+.payment-instructions h3 {
+  color: #92304d; /* dusty mauve */
+  font-size: 1.8rem;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.payment-instructions p {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+}
+
+.payment-instructions ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 24px;
+}
+
+.payment-instructions ul li {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.payment-instructions ul li strong {
+  color: #92304d;
+  font-weight: 600;
+}
+
+.payment-instructions a.btn-payment {
+  display: inline-block;
+  background-color: #fad1d9; /* blush pink */
+  color: #92304d;
+  text-decoration: none;
+  padding: 12px 26px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.payment-instructions a.btn-payment:hover {
+  background-color: #f7a1b4; /* soft rose */
+  color: white;
+}
+
+
 
 
