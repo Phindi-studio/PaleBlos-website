@@ -23,6 +23,18 @@
   </nav>
   
   <h1>Checkout</h1>
+  
+  <!-- Shipping options first -->
+<div class="shipping-options">
+  <label>
+    <input type="radio" name="shippingOption" value="pickup" checked>
+    Pickup (No charge)
+  </label>
+  <label>
+    <input type="radio" name="shippingOption" value="delivery">
+    Delivery (R65.00)
+  </label>
+</div>
 
   <!-- Order summary -->
   <section class="order-summary">
@@ -69,17 +81,7 @@
     </label>
     
     <button type="submit">Place Order</button>
-  </form>
-     <div class="shipping-options">
-  <label>
-    <input type="radio" name="shippingOption" value="pickup" checked>
-    Pickup (No charge)
-  </label>
-  <label>
-    <input type="radio" name="shippingOption" value="delivery">
-    Delivery (R65.00)
-  </label>
-</div>   
+  </form>   
 </section>
 
 
@@ -106,6 +108,7 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
