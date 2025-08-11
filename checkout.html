@@ -39,33 +39,39 @@
   </section>
 
    <!-- Checkout form -->
-  <section class="checkout-form-section">
-    <h2>Payment & Shipping Details</h2>
+  
+      <section class="checkout-form-section">
+  <h2>Payment & Shipping Details</h2>
 
-    <form action="https://formsubmit.co/moneysolutions342@gmail.com" method="POST" class="contact-form">
-      <input type="hidden" name="orderSummary" id="orderSummary" />
-      <input type="hidden" name="_next" value="https://phindi-studio.github.io/PaleBlos-website/order-confirmation.html"/>
-      
-      <input type="hidden" name="_next" value="thank-you.html" />
-      <input type="hidden" name="_captcha" value="false" />
+  <form action="https://formsubmit.co/moneysolutions342@gmail.com" method="POST" class="contact-form">
+    <input type="hidden" name="orderSummary" id="orderSummary" />
+    <input type="hidden" name="_next" value="https://phindi-studio.github.io/PaleBlos-website/order-confirmation.html" />
+    <input type="hidden" name="_captcha" value="false" />
 
-      <label>
-        Full Name*:
-        <input type="text" name="fullName" required />
-      </label>
+    <label>
+      Full Name*:
+      <input type="text" name="fullName" required />
+    </label>
 
-      <label>
-        Email*:
-        <input type="email" name="email" required />
-      </label>
+    <label>
+      Email*:
+      <input type="email" name="email" required />
+    </label>
 
-      <label>
-        Address*:
-        <input type="text" name="address" required />
-      </label>
+    <label>
+      Phone Number*:
+      <input type="tel" name="phone" required />
+    </label>
 
-      <button type="submit">Place Order</button>
-    </form>
+    <label>
+      Address*:
+      <input type="text" name="address" required />
+    </label>
+    
+    <button type="submit">Place Order</button>
+  </form>
+</section>
+
 
     <!-- Payment Instructions (outside form) -->
     <section class="payment-instructions">
@@ -90,6 +96,7 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
