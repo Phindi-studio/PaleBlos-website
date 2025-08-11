@@ -20,6 +20,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const subtotalDisplay = document.getElementById('subtotal');
   const orderItems = document.getElementById('orderItems');
   const orderSummaryField = document.getElementById('orderSummary');
+const shippingOptions = document.querySelectorAll('input[name="shippingOption"]');
+shippingOptions.forEach(option => {
+  option.addEventListener('change', () => {
+    loadCheckoutItems();
+  });
+});
+
 
   // Products data
   const products = [
@@ -368,6 +375,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   
  
+
 
 
 
