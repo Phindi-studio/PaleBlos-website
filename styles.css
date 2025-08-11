@@ -829,6 +829,9 @@ input:focus {
   font-family: Arial, sans-serif;
   font-size: 1rem;
   color: #333;
+  justify-content: center;
+  align-items: center;
+  width: fit-content; /* shrink to content */
 }
 
 .shipping-options label {
@@ -860,6 +863,7 @@ input:focus {
   font-weight: 600;
   color: #c64f71;
 }
+
 
 
 
