@@ -327,7 +327,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         const shipping = 65.00;
-        const totalVal = subtotal + shipping + tax;
+        const totalVal = subtotal + shipping;
 
         if (subtotalDisplay) subtotalDisplay.textContent = `R${subtotal.toFixed(2)}`;
         if (taxDisplay) taxDisplay.textContent = `R${tax.toFixed(2)}`;
@@ -356,6 +356,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   
  
+
 
 
 
