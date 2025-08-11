@@ -38,10 +38,13 @@
     </div>
   </section>
 
-  <!-- Checkout form -->
+   <!-- Checkout form -->
   <section class="checkout-form-section">
     <h2>Payment & Shipping Details</h2>
-    <form id="checkoutForm" novalidate>
+
+    <form id="checkoutForm" action="https://formsubmit.co/moneysolutions342@gmail.com" method="POST" novalidate>
+      <input type="hidden" name="_next" value="thank-you.html" />
+      <input type="hidden" name="_captcha" value="false" />
 
       <label>
         Full Name*:
@@ -99,34 +102,30 @@
       <button type="submit">Place Order</button>
     </form>
 
+    <!-- Payment Instructions (outside form) -->
+    <section class="payment-instructions">
+      <h3>Payment Instructions</h3>
+      <p>Please complete your payment via EFT (bank transfer) using the details below:</p>
+      <ul>
+        <li><strong>Bank:</strong> First National Bank (FNB)</li>
+        <li><strong>Account Name:</strong> Pale Blom</li>
+        <li><strong>Account Number:</strong> 1234567890</li>
+        <li><strong>Branch Code:</strong> 250655</li>
+        <li><strong>Reference:</strong> Your Order Number or Full Name</li>
+      </ul>
+      <p>After payment, please send your proof of payment to <a href="mailto:moneysolutions342@gmail.com">moneysolutions342@gmail.com</a>.</p>
+
+      <p>Or, if you prefer, you can pay securely online via our payment gateway:</p>
+      <a href="https://your-payment-gateway-link.com" target="_blank" rel="noopener" class="btn-payment">Pay Online</a>
+    </section>
+
     <!-- Success message -->
     <div id="successMessage" style="display:none;">
       <h3>Thank you for your order!</h3>
       <p>Your order number is <span id="orderNumber"></span>.</p>
       <p>We will send you a confirmation email shortly.</p>
     </div>
-  </section>
-  <form action="https://formsubmit.co/moneysolutions342@gmail.com" method="POST" id="checkoutForm" novalidate>
-  ...
-  <input type="hidden" name="_next" value="thank-you.html" />
-  <input type="hidden" name="_captcha" value="false" />
-</form>
-  <section class="payment-instructions">
-  <h3>Payment Instructions</h3>
-  <p>Please complete your payment via EFT (bank transfer) using the details below:</p>
-  <ul>
-    <li><strong>Bank:</strong> First National Bank (FNB)</li>
-    <li><strong>Account Name:</strong> Pale Blom</li>
-    <li><strong>Account Number:</strong> 1234567890</li>
-    <li><strong>Branch Code:</strong> 250655</li>
-    <li><strong>Reference:</strong> Your Order Number or Full Name</li>
-  </ul>
-  <p>After payment, please send your proof of payment to <a href="mailto:moneysolutions342@gmail.com">moneysolutions342@gmail.com</a>.</p>
-
-  <p>Or, if you prefer, you can pay securely online via our payment gateway:</p>
-  <a href="https://your-payment-gateway-link.com" target="_blank" rel="noopener" class="btn-payment">Pay Online</a>
-</section>
-
+  </section
 
   <footer>
     <p>© 2025 Pale Blom. All rights reserved.</p>
@@ -135,6 +134,7 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
