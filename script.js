@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const shippingDisplay = document.getElementById('shipping');
   const subtotalDisplay = document.getElementById('subtotal');
   const orderItems = document.getElementById('orderItems');
+  const orderSummaryField = document.getElementById('orderSummary');
 
   // Products data
   const products = [
@@ -334,12 +335,18 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         orderItems.innerHTML = '<p>Your cart is empty</p>';
       }
+      summaryText += `\nSubtotal: R${subtotal.toFixed(2)}\nShipping: R${shipping.toFixed(2)}\nTotal: R${totalVal.toFixed(2)}`;
+      orderSummaryField.value = summaryText; // Send summary via email
+    } else {
+      orderItems.innerHTML = '<p>Your cart is empty</p>';
+      orderSummaryField.value = 'No items in cart.';
+      }
     } catch (error) {
       console.error('Failed to load checkout items:', error);
       orderItems.innerHTML = '<p>Error loading cart items</p>';
     }
   }
-
+  
   // Initialize app functions
   initApp();
   loadCartFromStorage();
@@ -354,6 +361,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   
  
+
 
 
 
