@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const cardRadio = document.getElementById('card');
   const cardDetails = document.getElementById('cardDetails');
   const totalDisplay = document.getElementById('total');
-  const taxDisplay = document.getElementById('tax');
   const shippingDisplay = document.getElementById('shipping');
   const subtotalDisplay = document.getElementById('subtotal');
   const orderItems = document.getElementById('orderItems');
@@ -330,7 +329,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const totalVal = subtotal + shipping;
 
         if (subtotalDisplay) subtotalDisplay.textContent = `R${subtotal.toFixed(2)}`;
-        if (taxDisplay) taxDisplay.textContent = `R${tax.toFixed(2)}`;
         if (shippingDisplay) shippingDisplay.textContent = `R${shipping.toFixed(2)}`;
         if (totalDisplay) totalDisplay.textContent = `R${totalVal.toFixed(2)}`;
       } else {
@@ -356,6 +354,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   
  
+
 
 
 
