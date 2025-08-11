@@ -61,44 +61,6 @@
         <input type="text" name="address" required />
       </label>
 
-      <!-- Payment method selection -->
-      <fieldset>
-        <legend>Payment Method*</legend>
-
-        <label class="payment-method">
-          <input type="radio" name="paymentMethod" value="card" id="card" required />
-          Credit/Debit Card
-        </label>
-
-        <label class="payment-method">
-          <input type="radio" name="paymentMethod" value="eft" />
-          EFT / Bank Transfer
-        </label>
-      </fieldset>
-
-      <!-- Card details - shown only if card selected -->
-      <div id="cardDetails" style="display:none;">
-        <label>
-          Card Number*:
-          <input type="text" id="cardNumber" maxlength="19" placeholder="1234 5678 9012 3456" />
-        </label>
-
-        <label>
-          Expiry Date* (MM/YY):
-          <input type="text" id="expiryDate" maxlength="5" placeholder="MM/YY" />
-        </label>
-
-        <label>
-          CVV*:
-          <input type="text" id="cvv" maxlength="4" placeholder="123" />
-        </label>
-
-        <label>
-          Name on Card*:
-          <input type="text" id="cardName" />
-        </label>
-      </div>
-
       <button type="submit">Place Order</button>
     </form>
 
@@ -134,6 +96,7 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
