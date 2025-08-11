@@ -310,6 +310,7 @@ document.addEventListener("DOMContentLoaded", function () {
         orderItems.innerHTML = '';
 
         let subtotal = 0;
+        let summaryText = '';
 
         cart.forEach(item => {
           const itemTotal = item.price * item.quantity;
@@ -324,9 +325,14 @@ document.addEventListener("DOMContentLoaded", function () {
               <div class="item-price">R${itemTotal.toFixed(2)}</div>
             </div>
           `;
-        });
+          summaryText += `${item.name} (x${item.quantity}) - R${itemTotal.toFixed(2)}\n`;
+      });
 
-        const shipping = 65.00;
+        let shipping = 0;
+      const needsShipping = document.querySelector('input[name="shippingOption"]:checked')?.value === 'delivery';
+      if (needsShipping) {
+        shipping = 65.00;
+      }
         const totalVal = subtotal + shipping;
 
         if (subtotalDisplay) subtotalDisplay.textContent = `R${subtotal.toFixed(2)}`;
@@ -335,12 +341,14 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         orderItems.innerHTML = '<p>Your cart is empty</p>';
       }
+      
+      // Build order summary for email
       summaryText += `\nSubtotal: R${subtotal.toFixed(2)}\nShipping: R${shipping.toFixed(2)}\nTotal: R${totalVal.toFixed(2)}`;
-      orderSummaryField.value = summaryText; // Send summary via email
+      orderSummaryField.value = summaryText;
     } else {
       orderItems.innerHTML = '<p>Your cart is empty</p>';
       orderSummaryField.value = 'No items in cart.';
-      }
+    }
     } catch (error) {
       console.error('Failed to load checkout items:', error);
       orderItems.innerHTML = '<p>Error loading cart items</p>';
@@ -361,6 +369,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   
  
+
 
 
 
