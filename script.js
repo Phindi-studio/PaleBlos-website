@@ -20,10 +20,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const subtotalDisplay = document.getElementById('subtotal');
   const orderItems = document.getElementById('orderItems');
   const orderSummaryField = document.getElementById('orderSummary');
-  const checkoutSection = document.getElementById('checkoutSection');
-  const checkoutBtn = document.getElementById('checkoutBtn');
+const shippingOptions = document.querySelectorAll('input[name="shippingOption"]');
+shippingOptions.forEach(option => {
+  option.addEventListener('change', () => {
+    loadCheckoutItems();
+  });
+});
 
-  const shippingOptions = document.querySelectorAll('input[name="shippingOption"]');
 
   // Products data
   const products = [
@@ -186,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // -------- Payment method UI logic --------
   if (checkoutForm) {
-    const paymentMethods = [document.getElementById('cardMethod'), document.getElementById('eftMethod')];
+    const paymentMethods = checkoutForm.querySelectorAll('.payment-method');
     if (paymentMethods.length > 0) {
       paymentMethods.forEach(method => {
         method.addEventListener('click', function () {
@@ -300,107 +303,63 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.removeItem('cart');
         listCards = [];
         reloadCart();
-        hideCheckoutForm();
-      }, 3000);
+      }, 2000);
     });
   }
 
   // -------- Load cart items on checkout page --------
   function loadCheckoutItems() {
-    if (!orderItems) return;
+  if (!orderItems) return;
 
-    try {
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      let subtotal = 0;
-      let shipping = 0;
-      let summaryText = '';
+  try {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    let subtotal = 0;
+    let shipping = 0;
+    let summaryText = '';
 
-      if (cart.length > 0) {
-        orderItems.innerHTML = '';
+    if (cart.length > 0) {
+      orderItems.innerHTML = '';
 
-        cart.forEach(item => {
-          const itemTotal = item.price * item.quantity;
-          subtotal += itemTotal;
+      cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
 
-          orderItems.innerHTML += `
-            <div class="order-item" style="display:flex; justify-content:space-between; margin-bottom:6px;">
-              <div>${item.name} (x${item.quantity})</div>
-              <div>R${itemTotal.toFixed(2)}</div>
+        orderItems.innerHTML += `
+          <div class="order-item">
+            <div class="item-info">
+              <div class="item-name">${item.name}</div>
+              <div class="item-quantity">Qty: ${item.quantity}</div>
             </div>
-          `;
-          summaryText += `${item.name} (x${item.quantity}) - R${itemTotal.toFixed(2)}\n`;
-        });
+            <div class="item-price">R${itemTotal.toFixed(2)}</div>
+          </div>
+        `;
+        summaryText += `${item.name} (x${item.quantity}) - R${itemTotal.toFixed(2)}\n`;
+      });
 
-        const needsShipping = document.querySelector('input[name="shippingOption"]:checked')?.value === 'delivery';
-        if (needsShipping) {
-          shipping = 65.00;
-        }
-
-        const totalVal = subtotal + shipping;
-
-        if (subtotalDisplay) subtotalDisplay.textContent = `R${subtotal.toFixed(2)}`;
-        if (shippingDisplay) shippingDisplay.textContent = `R${shipping.toFixed(2)}`;
-        if (totalDisplay) totalDisplay.textContent = `R${totalVal.toFixed(2)}`;
-
-        // Build order summary for email
-        summaryText += `\nSubtotal: R${subtotal.toFixed(2)}\nShipping: R${shipping.toFixed(2)}\nTotal: R${totalVal.toFixed(2)}`;
-        if(orderSummaryField) orderSummaryField.value = summaryText;
-
-      } else {
-        orderItems.innerHTML = '<p>Your cart is empty</p>';
-        if(orderSummaryField) orderSummaryField.value = 'No items in cart.';
+      const needsShipping = document.querySelector('input[name="shippingOption"]:checked')?.value === 'delivery';
+      if (needsShipping) {
+        shipping = 65.00;
       }
-    } catch (error) {
-      console.error('Failed to load checkout items:', error);
-      orderItems.innerHTML = '<p>Error loading cart items</p>';
+
+      const totalVal = subtotal + shipping;
+
+      if (subtotalDisplay) subtotalDisplay.textContent = `R${subtotal.toFixed(2)}`;
+      if (shippingDisplay) shippingDisplay.textContent = `R${shipping.toFixed(2)}`;
+      if (totalDisplay) totalDisplay.textContent = `R${totalVal.toFixed(2)}`;
+
+      // Build order summary for email
+      summaryText += `\nSubtotal: R${subtotal.toFixed(2)}\nShipping: R${shipping.toFixed(2)}\nTotal: R${totalVal.toFixed(2)}`;
+      if(orderSummaryField) orderSummaryField.value = summaryText;
+
+    } else {
+      orderItems.innerHTML = '<p>Your cart is empty</p>';
+      if(orderSummaryField) orderSummaryField.value = 'No items in cart.';
     }
+  } catch (error) {
+    console.error('Failed to load checkout items:', error);
+    orderItems.innerHTML = '<p>Error loading cart items</p>';
   }
-
-  // -------- Shipping option change listener --------
-  shippingOptions.forEach(option => {
-    option.addEventListener('change', () => {
-      loadCheckoutItems();
-    });
-  });
-
-  // -------- Nav menu toggle --------
-  const menuToggle = document.getElementById('menu-toggle');
-  const navLinks = document.getElementById('nav-links');
-
-  if (menuToggle && navLinks) {
-    menuToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('show');
-    });
-  }
-
-  // -------- Checkout button click --------
-  if(checkoutBtn) {
-    checkoutBtn.addEventListener('click', () => {
-      if (listCards.length === 0) {
-        alert('Your cart is empty!');
-        return;
-      }
-      cart.classList.remove('show');
-      showCheckoutForm();
-      loadCheckoutItems();
-    });
-  }
-
-  // Show/hide checkout form
-  function showCheckoutForm() {
-    if(checkoutSection) {
-      checkoutSection.classList.remove('hidden');
-      successMessage.style.display = 'none';
-      if(checkoutForm) checkoutForm.style.display = 'flex';
-      checkoutSection.scrollIntoView({behavior: 'smooth'});
-    }
-  }
-
-  function hideCheckoutForm() {
-    if(checkoutSection) {
-      checkoutSection.classList.add('hidden');
-    }
-  }
+}
 
   // Initialize app functions
   initApp();
@@ -408,3 +367,31 @@ document.addEventListener("DOMContentLoaded", function () {
   reloadCart();
   loadCheckoutItems();
 });
+
+
+
+
+   
+
+  
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
