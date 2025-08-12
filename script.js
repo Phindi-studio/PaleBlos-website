@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // DOM Elements
+  // Elements that may or may not exist on every page
   const openShopping = document.querySelector('.shopping');
   const closeShopping = document.querySelector('.closeshopping');
   const cart = document.querySelector('.card');
@@ -20,26 +20,19 @@ document.addEventListener("DOMContentLoaded", function () {
   const subtotalDisplay = document.getElementById('subtotal');
   const orderItems = document.getElementById('orderItems');
   const orderSummaryField = document.getElementById('orderSummary');
-const shippingOptions = document.querySelectorAll('input[name="shippingOption"]');
-shippingOptions.forEach(option => {
-  option.addEventListener('change', () => {
-    loadCheckoutItems();
-  });
-});
+  const shippingOptions = document.querySelectorAll('input[name="shippingOption"]');
 
-
-  // Products data
+  // Products data — keep synced with your product list
   const products = [
     { id: 1, name: 'FOAM BATH (2L)', image: 'images/foam.png', price: 75 },
     { id: 2, name: 'Soap', image: 'images/soap.png', price: 15 },
     { id: 3, name: 'BATH SALT (450g)', image: 'images/salt.png', price: 40 }
   ];
 
-  // Cart array: stores cart items aligned with products array indexes
-  let listCards = [];
+  let listCards = []; // Cart array (products + quantity)
 
-  // -------- Shopping cart toggle --------
-  if (openShopping && closeShopping && cart) {
+  // ---- Shopping cart open/close (only if elements exist) ----
+  if (openShopping && closeShopping && cart && body) {
     openShopping.addEventListener('click', () => {
       cart.classList.add('show');
       body.classList.add('active');
@@ -51,11 +44,11 @@ shippingOptions.forEach(option => {
     });
   }
 
-  // -------- Initialize product listing --------
+  // ---- Initialize product listing (on pages with product list container) ----
   function initApp() {
-    if (!list) return;
+    if (!list) return; // skip if no product list container
 
-    list.innerHTML = ''; // Clear existing
+    list.innerHTML = ''; // clear existing content
 
     products.forEach((product, index) => {
       const newDiv = document.createElement('div');
@@ -78,7 +71,7 @@ shippingOptions.forEach(option => {
     });
   }
 
-  // -------- Add product to cart --------
+  // ---- Add product to cart ----
   function addToCart(index) {
     if (index < 0 || index >= products.length) return;
 
@@ -92,7 +85,7 @@ shippingOptions.forEach(option => {
     reloadCart();
   }
 
-  // -------- Reload cart UI --------
+  // ---- Reload cart UI ----
   function reloadCart() {
     if (!listCard || !total || !quantity) return;
 
@@ -124,7 +117,7 @@ shippingOptions.forEach(option => {
     total.innerText = `R${totalPrice.toFixed(2)}`;
     quantity.innerText = count;
 
-    // Attach event listeners for + and - buttons
+    // Attach + and - event listeners
     listCard.querySelectorAll('.btn-decrease').forEach(btn => {
       btn.addEventListener('click', () => {
         const idx = parseInt(btn.getAttribute('data-index'), 10);
@@ -140,7 +133,7 @@ shippingOptions.forEach(option => {
     });
   }
 
-  // -------- Change item quantity --------
+  // ---- Change quantity of an item ----
   function changeQuantity(index, newQuantity) {
     if (index < 0 || index >= listCards.length) return;
 
@@ -156,7 +149,7 @@ shippingOptions.forEach(option => {
     reloadCart();
   }
 
-  // -------- Cart persistence --------
+  // ---- Save cart to localStorage ----
   function saveCartToStorage() {
     try {
       const validItems = listCards.filter(item => item && item.quantity > 0);
@@ -166,6 +159,7 @@ shippingOptions.forEach(option => {
     }
   }
 
+  // ---- Load cart from localStorage ----
   function loadCartFromStorage() {
     try {
       const savedCart = localStorage.getItem('cart');
@@ -187,7 +181,70 @@ shippingOptions.forEach(option => {
     }
   }
 
-  // -------- Payment method UI logic --------
+  // ---- Shipping options listener (if any) ----
+  if (shippingOptions && shippingOptions.length > 0) {
+    shippingOptions.forEach(option => {
+      option.addEventListener('change', () => {
+        loadCheckoutItems();
+      });
+    });
+  }
+
+  // ---- Load checkout page cart summary ----
+  function loadCheckoutItems() {
+    if (!orderItems) return;
+
+    try {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      let subtotal = 0;
+      let shipping = 0;
+      let summaryText = '';
+
+      if (cart.length > 0) {
+        orderItems.innerHTML = '';
+
+        cart.forEach(item => {
+          const itemTotal = item.price * item.quantity;
+          subtotal += itemTotal;
+
+          orderItems.innerHTML += `
+            <div class="order-item">
+              <div class="item-info">
+                <div class="item-name">${item.name}</div>
+                <div class="item-quantity">Qty: ${item.quantity}</div>
+              </div>
+              <div class="item-price">R${itemTotal.toFixed(2)}</div>
+            </div>
+          `;
+          summaryText += `${item.name} (x${item.quantity}) - R${itemTotal.toFixed(2)}\n`;
+        });
+
+        const needsShipping = document.querySelector('input[name="shippingOption"]:checked')?.value === 'delivery';
+        if (needsShipping) {
+          shipping = 65.00;
+        }
+
+        const totalVal = subtotal + shipping;
+
+        if (subtotalDisplay) subtotalDisplay.textContent = `R${subtotal.toFixed(2)}`;
+        if (shippingDisplay) shippingDisplay.textContent = `R${shipping.toFixed(2)}`;
+        if (totalDisplay) totalDisplay.textContent = `R${totalVal.toFixed(2)}`;
+
+        // Build order summary for form
+        summaryText += `\nSubtotal: R${subtotal.toFixed(2)}\nShipping: R${shipping.toFixed(2)}\nTotal: R${totalVal.toFixed(2)}`;
+        if(orderSummaryField) orderSummaryField.value = summaryText;
+
+      } else {
+        orderItems.innerHTML = '<p>Your cart is empty</p>';
+        if(orderSummaryField) orderSummaryField.value = 'No items in cart.';
+      }
+    } catch (error) {
+      console.error('Failed to load checkout items:', error);
+      orderItems.innerHTML = '<p>Error loading cart items</p>';
+    }
+  }
+
+  // ---- Payment method UI logic (optional, if you have card payment fields) ----
   if (checkoutForm) {
     const paymentMethods = checkoutForm.querySelectorAll('.payment-method');
     if (paymentMethods.length > 0) {
@@ -221,7 +278,7 @@ shippingOptions.forEach(option => {
     }
   }
 
-  // -------- Card input formatting --------
+  // ---- Card input formatting (if card fields exist) ----
   const cardNumberField = document.getElementById('cardNumber');
   if (cardNumberField) {
     cardNumberField.addEventListener('input', e => {
@@ -251,7 +308,7 @@ shippingOptions.forEach(option => {
     });
   }
 
-  // -------- Checkout form submission --------
+  // ---- Checkout form submission ----
   if (checkoutForm) {
     checkoutForm.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -261,7 +318,7 @@ shippingOptions.forEach(option => {
         return;
       }
 
-      // Check required fields manually (in case HTML5 validation is bypassed)
+      // Check all required fields manually
       const requiredFields = this.querySelectorAll('[required]');
       for (let field of requiredFields) {
         if (!field.value.trim()) {
@@ -270,7 +327,7 @@ shippingOptions.forEach(option => {
         }
       }
 
-      // If card payment selected, validate card details
+      // Validate card details if card payment selected
       if (cardRadio && cardRadio.checked) {
         const cardNumber = document.getElementById('cardNumber').value.trim();
         const expiryDate = document.getElementById('expiryDate').value.trim();
@@ -293,7 +350,7 @@ shippingOptions.forEach(option => {
         successMessage.style.display = 'block';
       }
 
-      // Hide form and reset inputs
+      // Hide form & reset
       this.style.display = 'none';
       this.reset();
       if (cardDetails) cardDetails.style.display = 'none';
@@ -307,61 +364,7 @@ shippingOptions.forEach(option => {
     });
   }
 
-  // -------- Load cart items on checkout page --------
-  function loadCheckoutItems() {
-  if (!orderItems) return;
-
-  try {
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    let subtotal = 0;
-    let shipping = 0;
-    let summaryText = '';
-
-    if (cart.length > 0) {
-      orderItems.innerHTML = '';
-
-      cart.forEach(item => {
-        const itemTotal = item.price * item.quantity;
-        subtotal += itemTotal;
-
-        orderItems.innerHTML += `
-          <div class="order-item">
-            <div class="item-info">
-              <div class="item-name">${item.name}</div>
-              <div class="item-quantity">Qty: ${item.quantity}</div>
-            </div>
-            <div class="item-price">R${itemTotal.toFixed(2)}</div>
-          </div>
-        `;
-        summaryText += `${item.name} (x${item.quantity}) - R${itemTotal.toFixed(2)}\n`;
-      });
-
-      const needsShipping = document.querySelector('input[name="shippingOption"]:checked')?.value === 'delivery';
-      if (needsShipping) {
-        shipping = 65.00;
-      }
-
-      const totalVal = subtotal + shipping;
-
-      if (subtotalDisplay) subtotalDisplay.textContent = `R${subtotal.toFixed(2)}`;
-      if (shippingDisplay) shippingDisplay.textContent = `R${shipping.toFixed(2)}`;
-      if (totalDisplay) totalDisplay.textContent = `R${totalVal.toFixed(2)}`;
-
-      // Build order summary for email
-      summaryText += `\nSubtotal: R${subtotal.toFixed(2)}\nShipping: R${shipping.toFixed(2)}\nTotal: R${totalVal.toFixed(2)}`;
-      if(orderSummaryField) orderSummaryField.value = summaryText;
-
-    } else {
-      orderItems.innerHTML = '<p>Your cart is empty</p>';
-      if(orderSummaryField) orderSummaryField.value = 'No items in cart.';
-    }
-  } catch (error) {
-    console.error('Failed to load checkout items:', error);
-    orderItems.innerHTML = '<p>Error loading cart items</p>';
-  }
-}
-
-  // Initialize app functions
+  // ---- Run app initialization ----
   initApp();
   loadCartFromStorage();
   reloadCart();
@@ -371,10 +374,12 @@ shippingOptions.forEach(option => {
 
 
 
+
    
 
   
  
+
 
 
 
