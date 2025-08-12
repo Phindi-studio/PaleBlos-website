@@ -11,9 +11,11 @@
   <header class="navbar">
     <div class="nav-container">
       <a href="#" class="logo">Pale Blom</a>
-      <button class="nav-toggle" aria-label="Toggle menu">&#9776;</button>
-      <nav class="nav-container-links">
-        <a href="index.html" class="active">Home</a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-navigation">
+        &#9776;
+      </button>
+      <nav id="primary-navigation" class="nav-links" role="navigation">
+        <a href="index.html" class="active" aria-current="page">Home</a>
         <a href="shop.html">Shop</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
@@ -42,3 +44,5 @@
   <script src="script.js"></script>
 </body>
 </html>
+
+
