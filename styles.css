@@ -1,15 +1,375 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const navToggle = document.querySelector('.nav-toggle');
-  const navLinks = document.querySelector('.nav-container-links');
+/* ================== CSS VARIABLES & RESET ================== */
+:root {
+  /* Color Palette */
+  --pearl-white: #FFF5F7;
+  --blush-pink: #FAD1D9;
+  --soft-rose: #F7A1B4;
+  --dusty-mauve: #C27D89;
+  --rich-berry: #92304D;
+  --silky-taupe: #BFA6A0;
 
-  navToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-  });
+  /* Fonts */
+  --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-  // Optional: close nav when clicking a link (mobile)
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.classList.remove('active');
-    });
-  });
-});
+/* Reset & box-sizing */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Base body styles */
+body {
+  font-family: var(--font-primary);
+  background-color: var(--pearl-white);
+  color: #3a2c3d;
+  line-height: 1.6;
+  min-height: 100vh;
+  padding-bottom: 60px; /* space for footer */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================== NAVBAR ================== */
+/* Container for navbar contents */
+.navbar {
+  background-color: var(--blush-pink);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar .nav-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+}
+
+/* Logo */
+.logo {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--rich-berry);
+  text-decoration: none;
+  user-select: none;
+}
+
+/* Hamburger menu button */
+.nav-toggle {
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--rich-berry);
+  background: none;
+  border: none;
+  user-select: none;
+  display: none; /* shown only on mobile */
+}
+
+/* Navigation links */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.25rem;
+}
+
+/* Nav links styling */
+.nav-links li a {
+  color: var(--rich-berry);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  user-select: none;
+}
+
+/* Hover & active states */
+.nav-links li a:hover,
+.nav-links li a.active {
+  background-color: var(--soft-rose);
+  color: #fff;
+}
+
+/* ================== Responsive Navbar ================== */
+@media (max-width: 768px) {
+  /* Show hamburger menu */
+  .nav-toggle {
+    display: block;
+  }
+
+  /* Mobile nav links container */
+  .nav-links {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    left: 0;
+    background-color: var(--blush-pink);
+    flex-direction: column;
+    display: none;
+    padding: 1rem 0;
+    gap: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border-radius: 0 0 8px 8px;
+    z-index: 999;
+  }
+
+  /* Show nav when toggled */
+  .nav-links.show {
+    display: flex;
+  }
+
+  /* Mobile nav links padding */
+  .nav-links li a {
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+/* ================== GENERAL CONTAINER ================== */
+.container {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* ================== FOOTER ================== */
+.footer,
+footer {
+  background-color: var(--dusty-mauve);
+  color: var(--pearl-white);
+  text-align: center;
+  padding: 1rem 0;
+  user-select: none;
+  font-size: 0.9rem;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+/* ================== BUTTONS ================== */
+button,
+.cta-button,
+.button-primary,
+.checkout-btn {
+  background-color: var(--rich-berry);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  user-select: none;
+}
+
+button:hover,
+.cta-button:hover,
+.button-primary:hover,
+.checkout-btn:hover {
+  background-color: var(--dusty-mauve);
+}
+
+/* ================== HERO SECTION ================== */
+.hero-section {
+  background-color: var(--blush-pink);
+  padding: 3rem 1rem;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(194,125,137,0.4);
+}
+
+.hero-section h1 {
+  color: var(--rich-berry);
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.hero-section p {
+  max-width: 700px;
+  margin: 0.5rem auto;
+  color: var(--dusty-mauve);
+  font-size: 1.15rem;
+  line-height: 1.5;
+}
+
+.hero-section .button-primary {
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+}
+
+/* ================== UTILITY CLASSES ================== */
+.text-center {
+  text-align: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ================== ACCESSIBILITY FOCUS ================== */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 3px solid var(--rich-berry);
+  outline-offset: 2px;
+  outline-style: dashed;
+}
+
+/* ================== SCROLLBAR FOR CART SIDEBAR ================== */
+.listCard::-webkit-scrollbar {
+  width: 6px;
+}
+
+.listCard::-webkit-scrollbar-thumb {
+  background-color: var(--soft-rose);
+  border-radius: 10px;
+}
+
+/* ================== RESPONSIVE TWEAKS ================== */
+@media (max-width: 480px) {
+  .list {
+    grid-template-columns: 1fr;
+  }
+  .card {
+    width: 100%;
+  }
+}
+
+/* ================== THANK YOU SECTION ================== */
+.thank-you-section {
+  background-color: #fff8fb;
+  border: 2px solid var(--blush-pink);
+  border-radius: 12px;
+  padding: 40px 30px;
+  max-width: 480px;
+  box-shadow: 0 4px 10px rgba(201, 125, 137, 0.2);
+  text-align: center;
+  margin: 2rem auto;
+}
+
+.thank-you-section h1 {
+  color: var(--rich-berry);
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.thank-you-section p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: #3a2c3d;
+  line-height: 1.5;
+}
+
+.thank-you-section a.button-primary {
+  background-color: var(--blush-pink);
+  color: var(--rich-berry);
+  text-decoration: none;
+  padding: 14px 36px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 6px rgba(146, 48, 77, 0.3);
+  display: inline-block;
+}
+
+.thank-you-section a.button-primary:hover {
+  background-color: var(--soft-rose);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(146, 48, 77, 0.5);
+}
+
+/* ================== PAYMENT INSTRUCTIONS ================== */
+.payment-instructions {
+  background-color: var(--pearl-white);
+  border: 2px solid var(--soft-rose);
+  border-radius: 12px;
+  padding: 24px 30px;
+  max-width: 600px;
+  margin: 40px auto;
+  box-shadow: 0 4px 10px rgba(201, 125, 140, 0.2);
+  color: #3a2c3d;
+  line-height: 1.5;
+  text-align: left;
+  font-family: var(--font-primary);
+}
+
+.payment-instructions h3 {
+  color: var(--rich-berry);
+  font-size: 1.8rem;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.payment-instructions p,
+.payment-instructions ul li {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+}
+
+.payment-instructions ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 24px;
+}
+
+.payment-instructions ul li strong {
+  color: var(--rich-berry);
+  font-weight: 600;
+}
+
+.payment-instructions a.btn-payment {
+  background-color: var(--blush-pink);
+  color: var(--rich-berry);
+  text-decoration: none;
+  padding: 12px 26px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: inline-block;
+}
+
+.payment-instructions a.btn-payment:hover {
+  background-color: var(--soft-rose);
+  color: #fff;
+}
+
+/* ================== SHIPPING OPTIONS ================== */
+.shipping-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.shipping-options-heading {
+  margin-bottom: 10px;
+  font-family: Arial, sans-serif;
+  color: var(--rich-berry);
+  text-align: center;
+  width: 100%;
+}
+
+.shipping-options {
+  display: flex;
+  gap: 20px;
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  color: var(--rich-berry);
+  justify-content: center;
+  align-items: center;
+}
+
