@@ -50,12 +50,12 @@ if (navToggle && primaryNav) {
   // ---- Shopping cart open/close (only if elements exist) ----
   if (openShopping && closeShopping && cart && body) {
     openShopping.addEventListener('click', () => {
-      cart.classList.add('show');
+      cart.classList.add('open');
       body.classList.add('active');
     });
 
     closeShopping.addEventListener('click', () => {
-      cart.classList.remove('show');
+      cart.classList.remove('open');
       body.classList.remove('active');
     });
   }
@@ -395,6 +395,7 @@ if (navToggle && primaryNav) {
 
   
  
+
 
 
 
