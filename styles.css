@@ -845,6 +845,38 @@ input:focus {
   justify-content: center;
   align-items: center;
 }
+/* Hide menu on mobile by default */
+.nav-menu {
+  display: none;
+  flex-direction: column;
+  background: white;
+  position: absolute;
+  top: 60px;
+  right: 0;
+  width: 200px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  padding: 10px;
+}
+
+/* Show when active */
+.nav-menu.nav-menu-visible {
+  display: flex;
+}
+
+/* Desktop view */
+@media (min-width: 768px) {
+  .nav-menu {
+    display: flex;
+    position: static;
+    flex-direction: row;
+    box-shadow: none;
+    width: auto;
+  }
+  .nav-toggle {
+    display: none;
+  }
+}
+
 
 
 
