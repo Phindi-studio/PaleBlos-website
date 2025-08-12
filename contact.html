@@ -8,20 +8,22 @@
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar">
+ <header class="navbar">
     <div class="nav-container">
-      <a href="index.html" class="logo">Pale Blom</a>
-      <div class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">&#9776;</div>
-      <ul class="nav-links" id="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="contact.html" class="active">Contact</a></li>
-        <li><a href="product-info.html">Product Info</a></li>
-      </ul>
+      <a href="#" class="logo">Pale Blom</a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-navigation">
+        &#9776;
+      </button>
+      <nav id="primary-navigation" class="nav-links" role="navigation">
+        <a href="index.html" class="active" aria-current="page">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="product-info.html">Product Info</a>
+      </nav>
     </div>
-  </nav>
+  </header>
+
 
   <section class="contact-form-section">
     <h1>📞 Contact Us</h1>
@@ -58,6 +60,7 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
