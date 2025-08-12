@@ -68,7 +68,7 @@ if (navToggle && primaryNav) {
 
     products.forEach((product, index) => {
       const newDiv = document.createElement('div');
-      newDiv.classList.add('item');
+      newDiv.classList.add('product-item');
       newDiv.innerHTML = `
         <img src="${product.image}" alt="${product.name}" />
         <div class="title">${product.name}</div>
@@ -395,6 +395,7 @@ if (navToggle && primaryNav) {
 
   
  
+
 
 
 
