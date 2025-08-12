@@ -11,38 +11,84 @@
   <!-- Navbar -->
   <nav class="navbar">
     <div class="nav-container">
-      <a href="index.html" class="logo">Pale Blom</a>
+      <a href="#" class="logo">Pale Blom</a>
       <div class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">&#9776;</div>
       <ul class="nav-links" id="nav-links">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="product-info.html">Product Info</a></li>
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="#">Shop</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Product Info</a></li>
       </ul>
+      <div class="shopping" aria-label="Open shopping cart" role="button" tabindex="0" title="Open Cart">
+        🛒 <span class="quantity">0</span>
+      </div>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="hero-section">
-    <div class="container">
-      <h1>Luxury for Every Bath. Relief for Every Woman.</h1>
-      <p>After a long day, your body craves calm. Your mind begs for pause. Pale Blom invites you to reclaim your peace — one bath at a time.</p>
-      <p>From hand-blended bath salts to fizzing balls of bliss, our products transform ordinary evenings into spa-like rituals. Because self-care should never be a luxury — it should be your lifestyle.</p>
-      <p>Handcrafted fizz balls. Skin-softening salts. Soaps that love you back.</p>
-      <a href="shop.html" class="button-primary">Explore the Collection</a>
+  <!-- Product List -->
+  <div class="container">
+    <div class="list"></div>
+  </div>
+
+  <!-- Cart Sidebar -->
+  <div class="card" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <div class="closeshopping" aria-label="Close cart" role="button" tabindex="0">&times;</div>
+    <h1 id="cartTitle">Your Cart</h1>
+    <ul class="listCard"></ul>
+    <div class="checkOut">
+      <div>Total: <span class="total">R0.00</span></div>
+      <button class="checkout-btn" id="checkoutBtn">Checkout</button>
     </div>
-  </section>
+  </div>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <p>© 2025 Pale Blom. All rights reserved.</p>
-  </footer>
+  <!-- Checkout Modal -->
+  <div class="checkout-form-section hidden" id="checkoutSection">
+    <h2>Checkout</h2>
+    <div id="successMessage" style="display:none;">
+      <h3>Thank you for your order!</h3>
+      <p>Your order number is <strong id="orderNumber"></strong>.</p>
+    </div>
 
-  <!-- Include script.js for nav toggle and cart -->
-  <script src="script.js"></script>
+    <form id="checkoutForm" novalidate>
+      <label for="name">Full Name *</label>
+      <input type="text" id="name" name="name" required />
 
-</body>
-</html>
+      <label for="email">Email Address *</label>
+      <input type="email" id="email" name="email" required />
 
+      <label>Shipping Options *</label>
+      <div class="shipping-container">
+        <h2 class="shipping-options-heading">Choose a Shipping Method</h2>
+        <div class="shipping-options">
+          <label class="payment-method">
+            <input type="radio" name="shippingOption" value="pickup" checked />
+            Pickup (No charge)
+          </label>
+          <label class="payment-method">
+            <input type="radio" name="shippingOption" value="delivery" />
+            Delivery (R65.00)
+          </label>
+        </div>
+      </div>
 
+      <div id="orderItems"></div>
+
+      <div class="totals">
+        <div>Subtotal: <span id="subtotal">R0.00</span></div>
+        <div>Shipping: <span id="shipping">R0.00</span></div>
+        <div><strong>Total: <span id="total">R0.00</span></strong></div>
+      </div>
+
+      <label>Payment Method *</label>
+      <div class="payment-method" id="cardMethod">
+        <input type="radio" name="payment" id="card" value="card" />
+        Credit Card
+      </div>
+      <div class="payment-method" id="eftMethod">
+        <input type="radio" name="payment" id="eft" value="eft" checked />
+        EFT / Bank Transfer
+      </div>
+
+      <fieldset id="cardDetails" style="display:none;">
+        <label for="cardNumber">Card Number *</label>
