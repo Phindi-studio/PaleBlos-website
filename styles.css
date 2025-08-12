@@ -846,7 +846,7 @@ input:focus {
   align-items: center;
 }
 /* Hide menu on mobile by default */
-.nav-menu {
+.nav-container {
   display: none;
   flex-direction: column;
   background: white;
@@ -876,6 +876,7 @@ input:focus {
     display: none;
   }
 }
+
 
 
 
