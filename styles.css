@@ -859,13 +859,13 @@ input:focus {
 }
 
 /* Show when active */
-.nav-menu.nav-menu-visible {
+.nav-container.nav-container-visible {
   display: flex;
 }
 
 /* Desktop view */
 @media (min-width: 768px) {
-  .nav-menu {
+  .nav-container{
     display: flex;
     position: static;
     flex-direction: row;
@@ -876,6 +876,7 @@ input:focus {
     display: none;
   }
 }
+
 
 
 
