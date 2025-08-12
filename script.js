@@ -22,6 +22,22 @@ document.addEventListener("DOMContentLoaded", function () {
   const orderSummaryField = document.getElementById('orderSummary');
   const shippingOptions = document.querySelectorAll('input[name="shippingOption"]');
 
+  // NAVBAR TOGGLE (mobile menu)
+const navToggle = document.querySelector('.nav-toggle');
+const primaryNav = document.getElementById('primary-navigation');
+
+if (navToggle && primaryNav) {
+  navToggle.addEventListener('click', () => {
+    const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+    navToggle.setAttribute('aria-expanded', !isExpanded);
+    primaryNav.classList.toggle('show');  // This toggles your menu's visibility
+
+    // Optional: You can toggle a class on body to prevent background scroll when menu open
+    document.body.classList.toggle('nav-open');
+  });
+}
+
+
   // Products data — keep synced with your product list
   const products = [
     { id: 1, name: 'FOAM BATH (2L)', image: 'images/foam.png', price: 75 },
@@ -379,6 +395,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   
  
+
 
 
 
