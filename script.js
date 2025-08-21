@@ -40,9 +40,14 @@ if (navToggle && primaryNav) {
 
   // Products data — keep synced with your product list
   const products = [
-    { id: 1, name: 'FOAM BATH (2L)', image: 'images/foam.png', price: 75 },
-    { id: 2, name: 'Soap', image: 'images/soap.png', price: 15 },
-    { id: 3, name: 'BATH SALT (450g)', image: 'images/salt.png', price: 40 }
+    { id: 1, name: 'Combo', image: 'images/combo.png', price: 200 },
+    { id: 2, name: 'Gift Box', image: 'images/gift box.png', price: 250},
+    { id: 3, name: 'FOAM BATH (2L)', image: 'images/foam.png', price: 90 },
+    { id: 4, name: 'BATH SALT (450g)', image: 'images/salt.png', price: 70 },
+    { id: 5, name: 'Soap', image: 'images/soap.png', price: 20 },
+    { id: 6, name: 'Fizz Balls', image: 'images/fizz balls.png', price: 20 },
+   
+    
   ];
 
   let listCards = []; // Cart array (products + quantity)
@@ -395,6 +400,43 @@ if (navToggle && primaryNav) {
 
   
  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+  
+ 
+
 
 
 
