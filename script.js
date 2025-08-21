@@ -41,7 +41,7 @@ if (navToggle && primaryNav) {
   // Products data — keep synced with your product list
   const products = [
     { id: 1, name: 'Combo', image: 'images/combo.png', price: 200 },
-    { id: 2, name: 'Gift Box', image: 'images/gift box.png', price: 250},
+    { id: 2, name: 'Gift Box', image: 'images/gift box.png', price: 280},
     { id: 3, name: 'FOAM BATH (2L)', image: 'images/foam.png', price: 90 },
     { id: 4, name: 'BATH SALT (450g)', image: 'images/salt.png', price: 70 },
     { id: 5, name: 'Soap', image: 'images/soap.png', price: 20 },
@@ -436,6 +436,7 @@ if (navToggle && primaryNav) {
 
   
  
+
 
 
 
