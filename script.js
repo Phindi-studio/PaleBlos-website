@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Elements that may or may not exist on every page
+  // Elements
   const openShopping = document.querySelector('.shopping');
   const closeShopping = document.querySelector('.closeshopping');
   const cart = document.querySelector('.card');
@@ -22,114 +22,184 @@ document.addEventListener("DOMContentLoaded", function () {
   const orderSummaryField = document.getElementById('orderSummary');
   const shippingOptions = document.querySelectorAll('input[name="shippingOption"]');
 
-  // NAVBAR TOGGLE (mobile menu)
-const navToggle = document.querySelector('.nav-toggle');
-const primaryNav = document.getElementById('primary-navigation');
+  // NAVBAR toggle
+  const navToggle = document.querySelector('.nav-toggle');
+  const primaryNav = document.getElementById('primary-navigation');
+  if (navToggle && primaryNav) {
+    navToggle.addEventListener('click', () => {
+      const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', !isExpanded);
+      primaryNav.classList.toggle('show');
+      document.body.classList.toggle('nav-open');
+    });
+  }
 
-if (navToggle && primaryNav) {
-  navToggle.addEventListener('click', () => {
-    const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
-    navToggle.setAttribute('aria-expanded', !isExpanded);
-    primaryNav.classList.toggle('show');  // This toggles your menu's visibility
-
-    // Optional: You can toggle a class on body to prevent background scroll when menu open
-    document.body.classList.toggle('nav-open');
-  });
-}
-
-
-  // Products data — keep synced with your product list
+  // Products
   const products = [
-    { id: 1, name: 'Combo', image: 'images/combo.png', price: 200 },
-    { id: 2, name: 'Gift Box', image: 'images/gift box.png', price: 280},
-    { id: 3, name: 'FOAM BATH (2L)', image: 'images/foam.png', price: 90 },
-    { id: 4, name: 'BATH SALT (450g)', image: 'images/salt.png', price: 70 },
+    { id: 1, name: 'Combo', image: 'images/combo.png', price: 200, 
+      flavours: [
+        { name: "Berry", image: "images/combo berry.png" },
+        { name: "Sea", image: "images/combo sea.png" },
+        { name: "strawberry & Pomegranate", image: "images/combo strawberry.png" }
+      ]
+    },
+
+    { id: 2, name: 'Gift Box', image: 'images/gift box.png', price: 250,
+      flavours: [
+        { name: "Berry", image: "images/gift box berry.png" },
+        { name: "Sea", image: "images/gift box sea.png" },
+        { name: "strawberry & Pomegranate", image: "images/gift box strawberry.png" }
+      ]
+     },
+    {
+      id: 3, name: 'FOAM BATH (2L)', image: 'images/foam.png', price: 90,
+      flavours: [
+        { name: "Berry", image: "images/salt-vanilla.png" },
+        { name: "Sea", image: "images/salt-coconut.png" },
+        { name: "strawerry & Pomegranate", image: "images/salt-mint.png" }
+      ]
+    },
+    {
+      id: 4, name: 'BATH SALT (450g)', image: 'images/salt.png', price: 70,
+      flavours: [
+        { name: "Berry", image: "images/salt-vanilla.png" },
+        { name: "Sea", image: "images/salt-coconut.png" },
+        { name: "strawerry & Pomegranate", image: "images/salt-mint.png" }
+      ]
+    },
     { id: 5, name: 'Soap', image: 'images/soap.png', price: 20 },
-    { id: 6, name: 'Fizz Balls', image: 'images/fizz balls.png', price: 20 },
-   
-    
+    {
+      id: 6, name: 'Fizz Balls', image: 'images/fizz balls.png', price: 20,
+    }
   ];
 
-  let listCards = []; // Cart array (products + quantity)
+  let listCards = []; // cart array
 
-  // ---- Shopping cart open/close (only if elements exist) ----
+  // ---- Cart toggle ----
   if (openShopping && closeShopping && cart && body) {
     openShopping.addEventListener('click', () => {
       cart.classList.add('open');
       body.classList.add('active');
     });
-
     closeShopping.addEventListener('click', () => {
       cart.classList.remove('open');
       body.classList.remove('active');
     });
   }
 
-  // ---- Initialize product listing (on pages with product list container) ----
+  // ---- Initialize product listing ----
   function initApp() {
-    if (!list) return; // skip if no product list container
-
-    list.innerHTML = ''; // clear existing content
+    if (!list) return;
+    list.innerHTML = '';
 
     products.forEach((product, index) => {
       const newDiv = document.createElement('div');
       newDiv.classList.add('product-item');
-      newDiv.innerHTML = `
-        <img src="${product.image}" alt="${product.name}" />
-        <div class="title">${product.name}</div>
-        <div class="price">R${product.price.toFixed(2)}</div>
-        <button class="cta-button" data-index="${index}">Add To Cart</button>
-      `;
+
+      const productImg = document.createElement('img');
+      productImg.src = product.image;
+      productImg.alt = product.name;
+      newDiv.appendChild(productImg);
+
+      const titleDiv = document.createElement('div');
+      titleDiv.classList.add('title');
+      titleDiv.textContent = product.name;
+      newDiv.appendChild(titleDiv);
+
+      const priceDiv = document.createElement('div');
+      priceDiv.classList.add('price');
+      priceDiv.textContent = `R${product.price.toFixed(2)}`;
+      newDiv.appendChild(priceDiv);
+
+      // Flavour select
+      let flavourSelect = null;
+      if (product.flavours && product.flavours.length > 0) {
+        flavourSelect = document.createElement('select');
+        product.flavours.forEach(flavour => {
+          const option = document.createElement('option');
+          option.value = flavour.name;
+          option.textContent = flavour.name;
+          flavourSelect.appendChild(option);
+        });
+        newDiv.appendChild(flavourSelect);
+
+        // Change image when flavour changes
+        flavourSelect.addEventListener('change', () => {
+          const selectedFlavour = product.flavours.find(f => f.name === flavourSelect.value);
+          if (selectedFlavour) productImg.src = selectedFlavour.image;
+        });
+      }
+
+      // Add to cart button
+      const button = document.createElement('button');
+      button.classList.add('cta-button');
+      button.textContent = 'Add To Cart';
+      button.addEventListener('click', () => {
+        const chosenFlavour = flavourSelect ? flavourSelect.value : null;
+        addToCart(index, chosenFlavour);
+      });
+      newDiv.appendChild(button);
+
       list.appendChild(newDiv);
     });
+  }
 
-    // Add event listeners for all add-to-cart buttons
-    list.querySelectorAll('.cta-button').forEach(button => {
-      button.addEventListener('click', () => {
-        const index = parseInt(button.getAttribute('data-index'), 10);
-        addToCart(index);
-      });
+  // ---- Add to cart ----
+function addToCart(index, chosenFlavour = null) {
+  const product = products[index];
+
+  // Find correct flavour object
+  let flavourObj = null;
+  if (chosenFlavour) {
+    flavourObj = product.flavours?.find(f => f.name === chosenFlavour);
+  }
+
+  // Unique key: product+flavour
+  const cartKey = product.id + (chosenFlavour ? '-' + chosenFlavour : '');
+
+  // Try to find existing cart item with same key
+  let existingItem = listCards.find(item => item && item.cartKey === cartKey);
+
+  if (existingItem) {
+    existingItem.quantity++;
+  } else {
+    listCards.push({
+      ...product,
+      cartKey,
+      quantity: 1,
+      selectedFlavour: chosenFlavour,
+      image: flavourObj ? flavourObj.image : product.image // ✅ flavour-specific image
     });
   }
 
-  // ---- Add product to cart ----
-  function addToCart(index) {
-    if (index < 0 || index >= products.length) return;
+  saveCartToStorage();
+  reloadCart();
+}
 
-    if (!listCards[index]) {
-      listCards[index] = { ...products[index], quantity: 1 };
-    } else {
-      listCards[index].quantity++;
-    }
 
-    saveCartToStorage();
-    reloadCart();
-  }
-
-  // ---- Reload cart UI ----
+  // ---- Reload cart ----
   function reloadCart() {
     if (!listCard || !total || !quantity) return;
 
     listCard.innerHTML = '';
-
     let count = 0;
     let totalPrice = 0;
 
     listCards = listCards.filter(item => item && item.quantity > 0);
 
-    listCards.forEach((item, index) => {
+    listCards.forEach((item, idx) => {
       totalPrice += item.price * item.quantity;
       count += item.quantity;
 
       const newLi = document.createElement('li');
       newLi.innerHTML = `
         <img src="${item.image}" alt="${item.name}" />
-        <div>${item.name}</div>
+        <div>${item.name}${item.selectedFlavour ? ' (' + item.selectedFlavour + ')' : ''}</div>
         <div>R${item.price.toFixed(2)}</div>
         <div>
-          <button class="btn-decrease" data-index="${index}">-</button>
+          <button class="btn-decrease" data-index="${idx}">-</button>
           <span class="count">${item.quantity}</span>
-          <button class="btn-increase" data-index="${index}">+</button>
+          <button class="btn-increase" data-index="${idx}">+</button>
         </div>
       `;
       listCard.appendChild(newLi);
@@ -138,14 +208,13 @@ if (navToggle && primaryNav) {
     total.innerText = `R${totalPrice.toFixed(2)}`;
     quantity.innerText = count;
 
-    // Attach + and - event listeners
+    // Quantity buttons
     listCard.querySelectorAll('.btn-decrease').forEach(btn => {
       btn.addEventListener('click', () => {
         const idx = parseInt(btn.getAttribute('data-index'), 10);
         changeQuantity(idx, listCards[idx].quantity - 1);
       });
     });
-
     listCard.querySelectorAll('.btn-increase').forEach(btn => {
       btn.addEventListener('click', () => {
         const idx = parseInt(btn.getAttribute('data-index'), 10);
@@ -154,229 +223,97 @@ if (navToggle && primaryNav) {
     });
   }
 
-  // ---- Change quantity of an item ----
   function changeQuantity(index, newQuantity) {
-    if (index < 0 || index >= listCards.length) return;
-
     if (newQuantity <= 0) {
       listCards[index] = null;
     } else {
-      if (listCards[index]) {
-        listCards[index].quantity = newQuantity;
-      }
+      listCards[index].quantity = newQuantity;
     }
-
     saveCartToStorage();
     reloadCart();
   }
 
-  // ---- Save cart to localStorage ----
+  // ---- Local storage ----
   function saveCartToStorage() {
     try {
-      const validItems = listCards.filter(item => item && item.quantity > 0);
-      localStorage.setItem('cart', JSON.stringify(validItems));
-    } catch (error) {
-      console.error('Failed to save cart to localStorage:', error);
-    }
+      localStorage.setItem('cart', JSON.stringify(listCards.filter(i => i)));
+    } catch (e) { console.error(e); }
   }
-
-  // ---- Load cart from localStorage ----
   function loadCartFromStorage() {
     try {
-      const savedCart = localStorage.getItem('cart');
-      if (savedCart) {
-        const cartItems = JSON.parse(savedCart);
-        listCards = new Array(products.length).fill(null);
-
-        cartItems.forEach(item => {
-          const productIndex = products.findIndex(p => p.id === item.id);
-          if (productIndex !== -1) {
-            listCards[productIndex] = item;
-          }
-        });
-
-        reloadCart();
-      }
-    } catch (error) {
-      console.error('Failed to load cart from localStorage:', error);
-    }
-  }
-
-  // ---- Shipping options listener (if any) ----
-  if (shippingOptions && shippingOptions.length > 0) {
-    shippingOptions.forEach(option => {
-      option.addEventListener('change', () => {
-        loadCheckoutItems();
+      const saved = JSON.parse(localStorage.getItem('cart') || '[]');
+      listCards = new Array(products.length).fill(null);
+      saved.forEach(item => {
+        const idx = products.findIndex(p => p.id === item.id);
+        if (idx !== -1) listCards[idx] = item;
       });
-    });
+      reloadCart();
+    } catch (e) { console.error(e); }
   }
 
-  // ---- Load checkout page cart summary ----
+  // ---- Checkout page ----
   function loadCheckoutItems() {
     if (!orderItems) return;
+    const cartData = JSON.parse(localStorage.getItem('cart') || '[]');
+    let subtotal = 0;
+    let shipping = 0;
+    let summaryText = '';
 
-    try {
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      let subtotal = 0;
-      let shipping = 0;
-      let summaryText = '';
+    if (cartData.length > 0) {
+      orderItems.innerHTML = '';
+      cartData.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+        orderItems.innerHTML += `
+          <div class="order-item">
+            <div>${item.name}${item.selectedFlavour ? ' ('+item.selectedFlavour+')' : ''} x ${item.quantity}</div>
+            <div>R${itemTotal.toFixed(2)}</div>
+          </div>
+        `;
+        summaryText += `${item.name}${item.selectedFlavour ? ' ('+item.selectedFlavour+')' : ''} (x${item.quantity}) - R${itemTotal.toFixed(2)}\n`;
+      });
 
-      if (cart.length > 0) {
-        orderItems.innerHTML = '';
+      const needsShipping = document.querySelector('input[name="shippingOption"]:checked')?.value === 'delivery';
+      if (needsShipping) shipping = 65.00;
+      const totalVal = subtotal + shipping;
 
-        cart.forEach(item => {
-          const itemTotal = item.price * item.quantity;
-          subtotal += itemTotal;
+      if (subtotalDisplay) subtotalDisplay.textContent = `R${subtotal.toFixed(2)}`;
+      if (shippingDisplay) shippingDisplay.textContent = `R${shipping.toFixed(2)}`;
+      if (totalDisplay) totalDisplay.textContent = `R${totalVal.toFixed(2)}`;
 
-          orderItems.innerHTML += `
-            <div class="order-item">
-              <div class="item-info">
-                <div class="item-name">${item.name}</div>
-                <div class="item-quantity">Qty: ${item.quantity}</div>
-              </div>
-              <div class="item-price">R${itemTotal.toFixed(2)}</div>
-            </div>
-          `;
-          summaryText += `${item.name} (x${item.quantity}) - R${itemTotal.toFixed(2)}\n`;
-        });
-
-        const needsShipping = document.querySelector('input[name="shippingOption"]:checked')?.value === 'delivery';
-        if (needsShipping) {
-          shipping = 65.00;
-        }
-
-        const totalVal = subtotal + shipping;
-
-        if (subtotalDisplay) subtotalDisplay.textContent = `R${subtotal.toFixed(2)}`;
-        if (shippingDisplay) shippingDisplay.textContent = `R${shipping.toFixed(2)}`;
-        if (totalDisplay) totalDisplay.textContent = `R${totalVal.toFixed(2)}`;
-
-        // Build order summary for form
-        summaryText += `\nSubtotal: R${subtotal.toFixed(2)}\nShipping: R${shipping.toFixed(2)}\nTotal: R${totalVal.toFixed(2)}`;
-        if(orderSummaryField) orderSummaryField.value = summaryText;
-
-      } else {
-        orderItems.innerHTML = '<p>Your cart is empty</p>';
-        if(orderSummaryField) orderSummaryField.value = 'No items in cart.';
-      }
-    } catch (error) {
-      console.error('Failed to load checkout items:', error);
-      orderItems.innerHTML = '<p>Error loading cart items</p>';
+      summaryText += `\nSubtotal: R${subtotal.toFixed(2)}\nShipping: R${shipping.toFixed(2)}\nTotal: R${totalVal.toFixed(2)}`;
+      if (orderSummaryField) orderSummaryField.value = summaryText;
+    } else {
+      orderItems.innerHTML = '<p>Your cart is empty</p>';
+      if (orderSummaryField) orderSummaryField.value = 'No items in cart.';
     }
   }
 
-  // ---- Payment method UI logic (optional, if you have card payment fields) ----
+  if (shippingOptions) {
+    shippingOptions.forEach(option => option.addEventListener('change', loadCheckoutItems));
+  }
+
+  // ---- Payment method UI ----
   if (checkoutForm) {
     const paymentMethods = checkoutForm.querySelectorAll('.payment-method');
-    if (paymentMethods.length > 0) {
-      paymentMethods.forEach(method => {
-        method.addEventListener('click', function () {
-          paymentMethods.forEach(m => m.classList.remove('selected'));
-          this.classList.add('selected');
-
-          const radio = this.querySelector('input[type="radio"]');
-          if (radio) {
-            radio.checked = true;
-
-            if (cardDetails) {
-              if (radio.value === 'card') {
-                cardDetails.style.display = 'block';
-                ['cardNumber', 'expiryDate', 'cvv', 'cardName'].forEach(id => {
-                  const field = document.getElementById(id);
-                  if (field) field.required = true;
-                });
-              } else {
-                cardDetails.style.display = 'none';
-                ['cardNumber', 'expiryDate', 'cvv', 'cardName'].forEach(id => {
-                  const field = document.getElementById(id);
-                  if (field) field.required = false;
-                });
-              }
-            }
-          }
-        });
+    paymentMethods.forEach(method => {
+      method.addEventListener('click', function () {
+        paymentMethods.forEach(m => m.classList.remove('selected'));
+        this.classList.add('selected');
+        const radio = this.querySelector('input[type="radio"]');
+        if (radio) {
+          radio.checked = true;
+          if (cardDetails) cardDetails.style.display = radio.value === 'card' ? 'block' : 'none';
+        }
       });
-    }
-  }
-
-  // ---- Card input formatting (if card fields exist) ----
-  const cardNumberField = document.getElementById('cardNumber');
-  if (cardNumberField) {
-    cardNumberField.addEventListener('input', e => {
-      let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
-      value = value.substring(0, 16);
-      const formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
-      e.target.value = formattedValue;
     });
-  }
 
-  const expiryField = document.getElementById('expiryDate');
-  if (expiryField) {
-    expiryField.addEventListener('input', e => {
-      let value = e.target.value.replace(/\D/g, '');
-      if (value.length > 2) {
-        value = value.substring(0, 2) + '/' + value.substring(2, 4);
-      }
-      e.target.value = value;
-    });
-  }
-
-  const cvvField = document.getElementById('cvv');
-  if (cvvField) {
-    cvvField.addEventListener('input', e => {
-      let value = e.target.value.replace(/\D/g, '');
-      e.target.value = value.substring(0, 4);
-    });
-  }
-
-  // ---- Checkout form submission ----
-  if (checkoutForm) {
     checkoutForm.addEventListener('submit', function (e) {
       e.preventDefault();
-
-      if (!this.checkValidity()) {
-        this.reportValidity();
-        return;
-      }
-
-      // Check all required fields manually
-      const requiredFields = this.querySelectorAll('[required]');
-      for (let field of requiredFields) {
-        if (!field.value.trim()) {
-          alert('⚠️ Please complete all required fields.');
-          return;
-        }
-      }
-
-      // Validate card details if card payment selected
-      if (cardRadio && cardRadio.checked) {
-        const cardNumber = document.getElementById('cardNumber').value.trim();
-        const expiryDate = document.getElementById('expiryDate').value.trim();
-        const cvv = document.getElementById('cvv').value.trim();
-        const cardName = document.getElementById('cardName').value.trim();
-
-        if (!cardNumber || !expiryDate || !cvv || !cardName) {
-          alert('⚠️ Please fill in all card details.');
-          return;
-        }
-      }
-
-      // Generate order number & show success message
-      if (orderNumberEl) {
-        const orderNumber = 'PB' + Math.random().toString(36).substr(2, 9).toUpperCase();
-        orderNumberEl.textContent = orderNumber;
-      }
-
-      if (successMessage) {
-        successMessage.style.display = 'block';
-      }
-
-      // Hide form & reset
+      if (!this.checkValidity()) return this.reportValidity();
+      if (orderNumberEl) orderNumberEl.textContent = 'PB' + Math.random().toString(36).substr(2, 9).toUpperCase();
+      if (successMessage) successMessage.style.display = 'block';
       this.style.display = 'none';
-      this.reset();
-      if (cardDetails) cardDetails.style.display = 'none';
-
-      // Clear cart after delay
       setTimeout(() => {
         localStorage.removeItem('cart');
         listCards = [];
@@ -385,7 +322,7 @@ if (navToggle && primaryNav) {
     });
   }
 
-  // ---- Run app initialization ----
+  // ---- Initialize ----
   initApp();
   loadCartFromStorage();
   reloadCart();
@@ -436,6 +373,7 @@ if (navToggle && primaryNav) {
 
   
  
+
 
 
 
