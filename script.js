@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ]
     },
 
-    { id: 2, name: 'Gift Box', image: 'images/gift box.png', price: 250,
+    { id: 2, name: 'Gift Box', image: 'images/gift box.png', price: 290,
       flavours: [
         { name: "Berry", image: "images/gift box berry.png" },
         { name: "Sea", image: "images/gift box sea.png" },
@@ -373,6 +373,7 @@ function addToCart(index, chosenFlavour = null) {
 
   
  
+
 
 
 
